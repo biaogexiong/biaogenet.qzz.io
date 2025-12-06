@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>錶哥網|biaogeNet</title>
+  <link rel="icon" href="https://biaogenet.qzz.io/images/favicon.png" type="image/png" />
+  <style>
+    body {
+      background: #f2fff2;
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      font-weight: bold;
+    }
+    button {
+      background: #22b14c;
+      height: 50px;
+      width: 150px;
+      color: #ffffff;
+      font-size: 24px;
+      border: none;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+    button:hover {
+      background: #000000;
+      color: #ffff
+    }
+    .container {
+      background: #22b14c;
+      width: 100%;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+    .title {
+      color: #ffffff;
+      text-align: left;
+    }
+    .content {
+      margin-top: 120px;
+      text-align: center;
+    }
+    .crad {
+      border-radius: 16px;
+      padding: 16px;
+      background-color: #c0e0b8;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      display: inline-block;
+      text-align: center;
+      width: 50%;
+    }
+    .yt {
+      background-color: red;
+      border: none;
+      cursor: pointer;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-image: url('https://biaogenet.qzz.io/images/youtube.png');
+      background-size: cover;
+      background-position: center;
+    }
+    .dc {
+      background-color: purple;
+      border: none;
+      cursor: pointer;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-image: url('https://biaogenet.qzz.io/images/discord.png');
+      background-size: cover;
+      background-position: center;
+    }
+    .tk {
+      background-color: black;
+      border: none;
+      cursor: pointer;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-image: url('https://biaogenet.qzz.io/images/tiktok.png');
+      background-size: cover;
+      background-position: center;
+    }
+      .topimg {
+      height: 60px;
+      width: 60px;
+      object-fit: contain;
+      margin-right: 8px;
+    }
+    .end {
+      background-color: #22b14c;
+      width: 100%;
+      }
+    .white {
+      color :#ffffff 
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img class="topimg" src="https://biaogenet.qzz.io/images/favicon.png" />
+    <h3 class="title">錶哥網|biaogeNet</h3>
+  </div>
+  <div class="content">
+    <h1>熊~歡迎來到錶哥熊的網頁</h1>
+    <hr>
+    <h2>個熊介紹</h2>
+    <p>姓名：錶哥熊</p>
+    <p>真實姓名：謝睿軒</p>
+    <p>性別：♂️男性</p>
+    <p>生日：2015年11月14日</p>
+    <p>星座：♏天蠍座</p>
+    <div class="crad">
+      <h1>喜好</h1>
+      <p>🎞️做動畫</p>
+      <p>🖥️編程</p>
+      <p>☘️Minecraft 模組設計</p>
+      <p>🖼️畫畫</p>
+      <p>🎤唱歌</p>
+    </div>
+     <h1></h1>
+    <div class="crad">
+      <h1>喜歡的食物</h1>
+      <p>🍉西瓜</p>
+      <p>🍪餅乾</p>
+      <p>🥦花椰菜</p>
+      <p>🍇葡萄</p>
+      <p>✏️抹茶</p>
+      <p>🍵綠茶</p>
+    </div>
+     <h1></h1>
+    <div class="crad">
+      <h1>討厭的食物</h1>
+      <p>🍅番茄</p>
+      <p>🥒蔥</p>
+      <p>🍍榴槤</p>
+      <p>🥭芒果</p>
+      <p>💧開水</p>
+    </div>
+    <hr>
+     <h1>社交平台</h1>
+     <button class="yt" onclick="OpenYoutube"></button>
+     <button class="dc" onclick="OpenDiscord"></button>
+     <button class="tk" onclick="OpenTiktok"></button>
+    <div class="end">
+      <h2 class="white">錶哥網 | biaogenet.qzz.io</h2>
+      <p class="white">✉️聯絡郵件:biaogexiong@gmail.com</p>
+      <p class="white">🕛平日聯絡時間：17:00~21:00</p>
+      <p class="white">🕕假日聯絡時間：10:00~19:00</p>
+   </div>
+</body>
+      <script>
+        function OpenYoutube() {
+            window.open("https://youtube.com/@user-carer1114", "_blank");
+        }
+        function OpenDiscord() {
+            window.open("https://discord.gg/bG8wa7jnqw", "_blank");
+        }
+                function OpenTiktok() {
+            window.open("https://www.tiktok.com/@xiongaineyinliao", "_blank");
+        }
+    </script>
+</html>
