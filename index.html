@@ -101,13 +101,53 @@
     .white {
       color :#ffffff 
     }
+    .menu-btn {
+  position: absolute;
+  left: 12px;
+  font-size: 28px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.side-menu {
+  position: fixed;
+  top: 60px;
+  left: -220px;
+  width: 200px;
+  height: 100%;
+  background: #22b14c;
+  padding: 16px;
+  transition: left 0.3s ease;
+  z-index: 999;
+}
+
+.side-menu a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+  margin: 12px 0;
+}
+
+.side-menu a:hover {
+  text-decoration: underline;
+}
+
+.side-menu.open {
+  left: 0;
+}
   </style>
 </head>
 <body>
-  <div class="container">
-    <img class="topimg" src="https://biaogenet.qzz.io/images/favicon.png" />
-    <h3 class="title">錶哥網|biaogeNet</h3>
-  </div>
+<div class="container">
+  <div class="menu-btn" onclick="toggleMenu()">☰</div>
+  <img class="topimg" src="https://biaogenet.qzz.io/images/favicon.png" />
+  <h3 class="title">錶哥網|biaogeNet</h3>
+</div>
+<div id="sideMenu" class="side-menu">
+  <a href="#top">錶哥網首頁</a>
+  <a href="#">目前留空</a>
+</div>
   <div class="content">
     <h1>熊~歡迎來到錶哥熊的網頁</h1>
     <hr>
@@ -166,6 +206,9 @@
         }
         function OpenTiktok() {
             window.open("https://www.tiktok.com/@xiongaineyinliao", "_blank");
+        }
+        function toggleMenu() {
+            document.getElementById("sideMenu").classList.toggle("open");
         }
     </script>
 </html>
