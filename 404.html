@@ -108,8 +108,8 @@
  </div>
 <div class="content">
   <img src="https://biaogenet.qzz.io/images/404error.png" class="bigimg">
-  <h1>發生錯誤</h1>
-  <h2>你要找的東西不存在。</h2>
+  <h2>發生錯誤</h2>
+  <p>你要找的東西不存在。</p>
   <button onclick="BackHome()">回首頁</button>
 </div>
 </body>
@@ -118,7 +118,7 @@
             document.getElementById("sideMenu").classList.toggle("open");
         }
         function BackHome() {
-            window.open("https://biaogenet.qzz.io", "_blank");
+            window.location.href = "https://biaogenet.qzz.io";
         }
     </script>
 </html>
