@@ -94,10 +94,6 @@
       object-fit: contain;
       margin-right: 8px;
     }
-    .end {
-      background-color: #22b14c;
-      width: 100%;
-      }
     .white {
       color :#ffffff 
     }
@@ -140,7 +136,7 @@
 </head>
 <body>
 <div class="container">
-  <div class="menu-btn" onclick="toggleMenu()">☰</div>
+  <div class="menu-btn" onclick="OpenMenu()">☰</div>
   <img class="topimg" src="https://biaogenet.qzz.io/images/favicon.png" />
   <h3 class="title">錶哥網|biaogeNet</h3>
 </div>
@@ -190,12 +186,6 @@
      <button class="yt" onclick="OpenYoutube()"></button>
      <button class="dc" onclick="OpenDiscord()"></button>
      <button class="tk" onclick="OpenTiktok()"></button>
-    <div class="end">
-      <h2 class="white">錶哥網 | biaogenet.qzz.io</h2>
-      <p class="white">✉️聯絡郵件:biaogexiong@gmail.com</p>
-      <p class="white">🕛平日聯絡時間：17:00~21:00</p>
-      <p class="white">🕕假日聯絡時間：10:00~19:00</p>
-   </div>
 </body>
       <script>
         function OpenYoutube() {
@@ -207,7 +197,7 @@
         function OpenTiktok() {
             window.open("https://www.tiktok.com/@xiongaineyinliao", "_blank");
         }
-        function toggleMenu() {
+        function OpenMenu() {
             document.getElementById("sideMenu").classList.toggle("open");
         }
     </script>
