@@ -132,6 +132,38 @@
 .side-menu.open {
   left: 0;
 }
+.skills-section {
+  padding: 30px 20px;
+  max-width: 900px;
+  margin: 40px auto;
+}
+.skills-section h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.skill-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.skill-title {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+.bar-bg {
+  background: #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  height: 18px;
+}
+.bar {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #22b14c, #6fff9f);
+  transition: width 1s ease;
+}
   </style>
 </head>
 <body>
@@ -183,10 +215,44 @@
       <p>💧開水</p>
     </div>
     <hr>
+    <section id="skills" class="skills-section">
+  <h2>🎯 我的技能</h2>
+
+  <div class="skill-card">
+    <div class="skill-title">網頁設計</div>
+    <div class="bar-bg"><div class="bar" data-level="75%"></div></div>
+  </div>
+
+  <div class="skill-card">
+    <div class="skill-title">動畫製作</div>
+    <div class="bar-bg"><div class="bar" data-level="98%"></div></div>
+  </div>
+
+  <div class="skill-card">
+    <div class="skill-title">Minecraft 建築</div>
+    <div class="bar-bg"><div class="bar" data-level="95%"></div></div>
+  </div>
+
+  <div class="skill-card">
+    <div class="skill-title">畫圖</div>
+    <div class="bar-bg"><div class="bar" data-level="100%"></div></div>
+  </div>
+    </section>
+    <hr>
      <h1>社交平台</h1>
      <button class="yt" onclick="OpenYoutube()"></button>
      <button class="dc" onclick="OpenDiscord()"></button>
      <button class="tk" onclick="OpenTiktok()"></button>
+<script>
+  window.addEventListener("load", () => {
+    document.querySelectorAll(".bar").forEach(bar => {
+      const level = bar.dataset.level;
+      setTimeout(() => {
+        bar.style.width = level;
+      }, 200);
+    });
+  });
+</script>
 </body>
       <script>
         function OpenYoutube() {
