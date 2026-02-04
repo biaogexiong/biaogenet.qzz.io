@@ -1,0 +1,170 @@
+    body {
+      background: #fff9c4;
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      font-weight: bold;
+    }
+    button {
+      background: #ffc90e;
+      height: 50px;
+      width: 150px;
+      color: #ffffff;
+      font-size: 24px;
+      border: none;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+    button:hover {
+      background: #000000;
+      color: #ffff
+    }
+    .container {
+      background: #ffc90e;
+      width: 100%;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+    .title {
+      color: #ffffff;
+      text-align: left;
+    }
+    .content {
+      margin-top: 120px;
+      text-align: center;
+    }
+    .crad {
+      border-radius: 16px;
+      padding: 16px;
+      background-color: #e9e4b3;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      display: inline-block;
+      text-align: center;
+      width: 50%;
+    }
+    .yt {
+      background-color: red;
+      border: none;
+      cursor: pointer;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-image: url('https://biaogenet.qzz.io/images/youtube.png');
+      background-size: cover;
+      background-position: center;
+    }
+    .dc {
+      background-color: purple;
+      border: none;
+      cursor: pointer;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-image: url('https://biaogenet.qzz.io/images/discord.png');
+      background-size: cover;
+      background-position: center;
+    }
+    .tk {
+      background-color: black;
+      border: none;
+      cursor: pointer;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-image: url('https://biaogenet.qzz.io/images/tiktok.png');
+      background-size: cover;
+      background-position: center;
+    }
+      .topimg {
+      height: 60px;
+      width: 60px;
+      object-fit: contain;
+      margin-right: 8px;
+    }
+    .white {
+      color :#ffffff 
+    }
+    .menu-btn {
+  position: absolute;
+  left: 12px;
+  font-size: 28px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.side-menu {
+  position: fixed;
+  top: 60px;
+  left: -220px;
+  width: 200px;
+  height: 100%;
+  background: #ffc90e;
+  padding: 16px;
+  transition: left 0.3s ease;
+  z-index: 999;
+}
+
+.side-menu a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+  margin: 12px 0;
+}
+
+.side-menu a:hover {
+  text-decoration: underline;
+}
+
+.side-menu.open {
+  left: 0;
+}
+.skills-section {
+  padding: 30px 20px;
+  max-width: 900px;
+  margin: 40px auto;
+}
+.skills-section h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.skill-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.skill-title {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+.bar-bg {
+  background: #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  height: 18px;
+}
+.bar {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #22b14c, #22b1c2);
+  transition: width 1s ease;
+  }
+#coin {
+  width: 150px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+#coin:active {
+  transform: scale(1.1) rotate(20deg);
+}
+      .bigimg {
+      height: 256px;
+      width: 256px;
+      }
