@@ -1,6 +1,6 @@
 function setTheme(name) {
   const link = document.getElementById("theme-style");
-  link.href = "css/" + name + ".css";
+  link.href = "https://biaogenet.qzz.io/styles/" + name + ".css";
   localStorage.setItem("theme", name);
 }
 
