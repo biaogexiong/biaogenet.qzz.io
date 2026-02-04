@@ -1,0 +1,15 @@
+{
+  "name": "錶哥網|biaogeNet",
+  "short_name": "biaogenet",
+  "display": "standalone",
+  "background_color": "#f2fff2",
+  "description": "錶哥網是個充滿活力的網站，既美觀又漂亮",
+  "icons": [
+    {
+      "src": "https://biaogenet.qzz.io/images/app_icon.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    }
+  ]
+}
+
