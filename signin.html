@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="註冊一個biaoge ID，讓你玩得夠">
+  <script type="text/javascript" src="https://sdk.userbase.com/2/userbase.js"></script>
   <title>註冊|biaogeNet</title>
   <link rel="icon" href="https://biaogenet.qzz.io/images/favicon.png" type="image/png" />
   <style>
@@ -165,7 +166,9 @@ function OpenMenu() {
 function validateForm() {
   const password = document.getElementById("password").value;
   const nickname = document.getElementById("nickname").value;
-
+  
+  userbase.init({ appId: 'd20a3430-727a-43ca-b832-6de1119d9020' })
+  
   // 密碼至少 6 位
   if (password.length < 6) {
     alert("密碼至少需要 6 位字元");
