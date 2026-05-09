@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="註冊一個biaoge ID，讓你玩得夠">
+  <title>註冊|biaogeNet</title>
+  <link rel="icon" href="https://biaogenet.qzz.io/images/favicon.png" type="image/png" />
+  <style>
+    body {
+      background: #f2fff2;
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      font-weight: bold;
+    }
+    button {
+      background: #22b14c;
+      height: 50px;
+      width: 150px;
+      color: #ffffff;
+      font-size: 24px;
+      border: none;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+    button:hover {
+      background: #000000;
+      color: #ffff;
+    }
+    .container {
+      background: #22b14cb1;
+      backdrop-filter: blur(10px);
+      width: 100%;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+    .title {
+      color: #ffffff;
+      text-align: left;
+    }
+    .content {
+      margin-top: 120px;
+      text-align: center;
+    }
+    .card {
+      border-radius: 16px;
+      padding: 24px;
+      background-color: #c0e0b8;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      display: inline-block;
+      text-align: left;
+      width: 300px;
+    }
+    .card label {
+      display: block;
+      margin: 12px 0 6px;
+      color: #333;
+    }
+    .card input {
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #aaa;
+      font-size: 16px;
+    }
+    .topimg {
+      height: 60px;
+      width: 60px;
+      object-fit: contain;
+      margin-right: 8px;
+    }
+    .menu-btn {
+      position: absolute;
+      left: 12px;
+      font-size: 28px;
+      color: #fff;
+      cursor: pointer;
+    }
+    .side-menu {
+      position: fixed;
+      top: 60px;
+      left: -220px;
+      width: 200px;
+      height: 100%;
+      background: #22b14cb1;
+      backdrop-filter: blur(10px);
+      padding: 16px;
+      transition: left 0.3s ease;
+      z-index: 999;
+    }
+    .side-menu a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      font-size: 20px;
+      margin: 12px 0;
+    }
+    .side-menu a:hover {
+      text-decoration: underline;
+    }
+    .side-menu.open {
+      left: 0;
+    }
+    .toggle-eye {
+      position: absolute;
+      right: 8px;
+      top: 8px;
+      cursor: pointer;
+      color: #22b14c;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="menu-btn" onclick="OpenMenu()">☰</div>
+  <img class="topimg" src="https://biaogenet.qzz.io/images/favicon.png" alt="錶哥網小圖示"/>
+  <h3 class="title">錶哥網|biaogeNet</h3>
+</div>
+
+<div id="sideMenu" class="side-menu">
+  <a href="https://biaogenet.qzz.io">錶哥網首頁</a>
+  <a href="https://biaogenet.qzz.io/imagedow.html">素材下載</a>
+  <a href="https://biaogenet.qzz.io/appstore.html">應用程式商店</a>
+  <a href="https://biaogenet.qzz.io/coin.html">投硬幣</a>
+  <a href="https://biaogenet.qzz.io/pp.html">隱私權政策</a>
+</div>
+
+<div class="content">
+  <h1>註冊</h1>
+  <div class="card">
+    <form onsubmit="return validateForm()">
+      <label for="userid">biaoge ID</label>
+      <input type="text" id="userid" name="userid" required>
+
+      <label for="password">密碼</label>
+      <div style="position:relative;">
+        <input type="password" id="password" name="password" required>
+        <span class="toggle-eye" onclick="togglePassword()">👁</span>
+      </div>
+
+      <label for="nickname">暱稱</label>
+      <input type="text" id="nickname" name="nickname" required>
+
+      <p>已經有帳號了嗎?<a href="login.html">登入</a></p>
+
+      <div style="text-align:center; margin-top:16px;">
+        <button type="submit">註冊</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+function OpenMenu() {
+  document.getElementById("sideMenu").classList.toggle("open");
+}
+
+function validateForm() {
+  const password = document.getElementById("password").value;
+  const nickname = document.getElementById("nickname").value;
+
+  // 密碼至少 6 位
+  if (password.length < 6) {
+    alert("密碼至少需要 6 位字元");
+    return false;
+  }
+
+  // 密碼只能英文大小寫 + 數字
+  const regex = /^[A-Za-z0-9]+$/;
+  if (!regex.test(password)) {
+    alert("密碼只能包含英文大小寫字母與數字");
+    return false;
+  }
+
+  // 暱稱不能空白
+  if (nickname.trim() === "") {
+    alert("暱稱不能空白");
+    return false;
+  }
+
+  return true; // 驗證通過
+}
+
+function togglePassword() {
+  const pwd = document.getElementById("password");
+  pwd.type = (pwd.type === "password") ? "text" : "password";
+}
+</script>
+</body>
+</html>
