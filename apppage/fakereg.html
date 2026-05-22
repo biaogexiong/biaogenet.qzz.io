@@ -407,7 +407,15 @@ body{
 const menu = document.getElementById("contextMenu");
 const row = document.querySelector(".row");
 const content = document.querySelector(".content");
+const iframe =
+document.getElementById("appframe");
 
+iframe.addEventListener("load",()=>{
+
+    syncIframeLanguage(iframe);
+
+});
+    
 function toggleFolder(el){
 
     const children = el.nextElementSibling;
@@ -467,6 +475,31 @@ document.addEventListener("contextmenu",(e)=>{
     menu.style.top = e.pageY + "px";
 });
 </script>
+    
+<script>
+window.langcode = "en";
 
+/* 接收 Win12 語言 */
+window.addEventListener("message",(e)=>{
+
+    if(e.data.type !== "win12-language")
+        return;
+
+    window.langcode = e.data.lang;
+
+    console.log(
+        "Win12 Language:",
+        window.langcode
+    );
+
+    applyLanguage();
+});
+
+/* 套用語言 */
+function applyLanguage(){
+    loadlang(window.langcode);
+}
+</script>
+    
 </body>
 </html>
