@@ -248,6 +248,11 @@
      <button class="yt" onclick="OpenYoutube()"></button>
      <button class="dc" onclick="OpenDiscord()"></button>
      <button class="tk" onclick="OpenTiktok()"></button>
+    <hr>
+     <h1>網站人數</h1>
+    <img src="https://SiteStates.com/show/image/33697.png" border="0" alt="網站人數"/>
+
+<script src="https://cdn.jsdelivr.net/gh/ezshine/oneline.js@1.0.0/oneline.js"></script>
 <script>
   window.addEventListener("load", () => {
     document.querySelectorAll(".bar").forEach(bar => {
@@ -258,6 +263,11 @@
     });
   });
 </script>
+<script>
+    new Oneline("bgnet-index").on("OnelineUpdate", (e) => {
+      document.getElementById("onlineCount").innerText = e.detail.count;
+    });
+  </script>
 </body>
       <script>
         function OpenYoutube() {
