@@ -1,11 +1,19 @@
     body {
-      background: linear-gradient(#f2fff2, #eaeae2);
-      background-attachment: fixed;
       margin: 0;
       padding: 0;
       font-family: sans-serif;
       font-weight: bold;
     }
+
+    body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(#f2fff2, #eaeae2);
+    pointer-events: none;
+    }
+
     * {
       -webkit-tap-highlight-color: transparent;
     }
