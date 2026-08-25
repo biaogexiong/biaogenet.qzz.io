@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>雲海工藝|Minecraft</title>
+<style>
+@font-face{
+    font-family:Cubic12;
+    src:url("Cubic_12.ttf");
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Cubic12, monospace;
+    color:white;
+    min-height:100vh;
+    background:linear-gradient(
+        180deg,
+        #bffcff 0%,
+        #66dede 45%,
+        #158888 100%
+    );
+}
+
+header{
+    text-align:center;
+    padding:80px 20px;
+}
+
+h1{
+    font-size:48px;
+    text-shadow:4px 4px rgba(0,0,0,.25);
+}
+
+.subtitle{
+    margin-top:15px;
+    font-size:18px;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+    padding:20px;
+}
+
+.card{
+    background:rgba(255,255,255,.12);
+    border:2px solid rgba(255,255,255,.2);
+    border-radius:18px;
+    padding:25px;
+    margin-bottom:20px;
+    backdrop-filter:blur(10px);
+}
+
+.card h2{
+    margin-bottom:15px;
+}
+
+.card h3{
+    margin-top:15px;
+    margin-bottom:8px;
+}
+
+ul{
+    padding-left:24px;
+}
+
+li{
+    margin:6px 0;
+}
+
+.ipbox{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:10px;
+}
+
+.ipbox input{
+    flex:1;
+    min-width:250px;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    font-family:Cubic12;
+    font-size:16px;
+}
+
+button, a.btn{
+    border:none;
+    padding:12px 18px;
+    border-radius:10px;
+    cursor:pointer;
+    font-family:Cubic12;
+    font-size:16px;
+    text-decoration:none;
+    display:inline-block;
+}
+
+.copybtn{
+    background:#00e5c3;
+    color:#003333;
+}
+
+.discordbtn{
+    background:#5865F2;
+    color:white;
+}
+
+.copybtn:hover,
+.discordbtn:hover{
+    transform:scale(1.05);
+}
+
+.status{
+    margin-top:10px;
+    color:#ffffaa;
+}
+
+hr{
+    border:none;
+    border-top:1px solid rgba(255,255,255,.3);
+    margin:20px 0;
+}
+
+footer{
+    text-align:center;
+    padding:25px;
+    opacity:.8;
+}
+</style>
+</head>
+<body>
+<header>
+<h1>☁ 雲海工藝 ☁</h1>
+<div class="subtitle">
+        在雲海之上的原版生存世界
+    </div>
+</header>
+<div class="container">
+<!-- 伺服器資訊 -->
+<div class="card">
+<h2>📱 基岩版伺服器</h2>
+<p>原版生存｜跨平台支援所有基岩版裝置</p>
+<div class="ipbox">
+<input id="serverInfo"
+                   value="1234-ynaH.aternos.me:28336"
+                   readonly>
+<button class="copybtn" onclick="copyServer()">
+                📋 複製IP
+            </button>
+<a class="btn discordbtn"
+               href="https://discord.gg/5KppexyWFP"
+               target="_blank">
+               💬 Discord
+            </a>
+</div>
+<div id="status" class="status">
+            點擊按鈕即可複製伺服器資訊
+        </div>
+<hr>
+<h2>🎮 伺服器資訊</h2>
+<ul>
+<li>原版生存</li>
+<li>通用貨幣：💎 鑽石、💠 鑽石塊</li>
+<li>最大同時在線：👥 20 人</li>
+<li>基岩版專用伺服器</li>
+</ul>
+<hr>
+<h2>⚠️ 自動關閉機制</h2>
+<ul>
+<li>無玩家在線時，5 分鐘後自動關閉</li>
+<li>需遊玩請通知管理員啟動伺服器</li>
+<li>未啟動進入將進入等候室</li>
+</ul>
+</div>
+<!-- 規則 -->
+<div class="card">
+<h2>📜 伺服器規則</h2>
+<h3>① 尊重所有成員</h3>
+<ul>
+<li>禁止人身攻擊、辱罵、歧視</li>
+<li>保持友善交流</li>
+</ul>
+<h3>② 禁止洗版</h3>
+<ul>
+<li>禁止刷屏與重複訊息</li>
+<li>禁止惡意 @所有人</li>
+</ul>
+<h3>③ 禁止違規內容</h3>
+<ul>
+<li>禁止色情、暴力、恐怖內容</li>
+<li>禁止惡意程式與詐騙</li>
+</ul>
+<h3>④ 禁止廣告</h3>
+<ul>
+<li>未經允許禁止宣傳其他伺服器</li>
+</ul>
+<h3>⑤ 遊戲規範</h3>
+<ul>
+<li>禁止作弊與惡意破壞</li>
+<li>保持公平遊玩</li>
+</ul>
+<h3>⑥ 管理規範</h3>
+<ul>
+<li>請尊重管理員判決</li>
+<li>可申訴但禁止吵架</li>
+</ul>
+<h3>⑦ 隱私保護</h3>
+<ul>
+<li>禁止公開個資</li>
+</ul>
+<h3>⑧ 處分制度</h3>
+<p>⚠️ 警告 → ⏳ 禁言 → 🚫 封禁 → 🔨 永久封禁</p>
+<hr>
+<p>
+            ✨ 進入伺服器即代表同意以上規則
+        </p>
+</div>
+</div>
+<footer>
+© 2026 雲海工藝 ynaH 網頁製作：錶哥熊
+</footer>
+<script>
+function copyServer(){
+    const text =
+        document.getElementById("serverInfo").value;
+
+    navigator.clipboard.writeText(text);
+
+    document.getElementById("status").innerText =
+        "✓ 已複製：" + text;
+}
+</script>
+</body>
+  </html>
