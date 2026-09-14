@@ -410,21 +410,11 @@ function createScratchCard(text, number) {
     if (revealed)
       return;    event.preventDefault();    const [x, y] =
       getPosition(event);    if (!drawing) {
-
-      drawing = true;
-
       ctx.beginPath();
-
       ctx.moveTo(x, y);
-
-    }
-
-    else {
-
+    } else {
       ctx.lineTo(x, y);
-
       ctx.stroke();
-
     }    ctx.lineWidth =
       32;    ctx.lineCap =
       "round";    ctx.lineJoin =
@@ -452,12 +442,24 @@ function createScratchCard(text, number) {
 
   canvas.addEventListener(
     "mousedown",
-    scratch
+    event => {
+      // 電腦版：只有按下左鍵才開始刮
+      if (event.button !== 0) return;
+      drawing = true;
+      scratch(event);
+    }
   );
 
   canvas.addEventListener(
     "mousemove",
-    scratch
+    event => {
+      // 電腦版：必須持續按住左鍵才算刮
+      if (!drawing || (event.buttons & 1) !== 1) {
+        stopScratch();
+        return;
+      }
+      scratch(event);
+    }
   );
 
   window.addEventListener(
