@@ -35,15 +35,13 @@
     }
     @media (hover: hover) {
       button:hover {
-        background: linear-gradient(#02912c, #57914c);
-        color: #eeeeee;
+        background: #000000b1;
         transform: scale(0.95)
       }
     }
     
     button:active {
-      background: linear-gradient(#02912c, #57914c);
-      color: #eeeeee;
+      background: #000000b1;
       transform: scale(0.92);
     }
     .container {
