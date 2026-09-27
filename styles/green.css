@@ -4,6 +4,7 @@ body {
   font-family: sans-serif;
   font-weight: bold;
 }
+
 body::before {
   content: "";
   position: fixed;
@@ -12,14 +13,18 @@ body::before {
   background: linear-gradient(#f2fff2, #eaeae2);
   pointer-events: none;
 }
+
 * {
   -webkit-tap-highlight-color: transparent;
   box-sizing: border-box;
 }
+
 button:focus,
 a:focus {
   outline: none;
-}/* =========================
+}
+
+/* =========================
    所有按鈕
    ========================= */
 button {
@@ -41,13 +46,20 @@ button {
   overflow: hidden;
   transition: transform 0.18s ease, background 0.18s ease;
 }
-button:hover {
-  background: rgba(34, 177, 76, 0.62);
-  transform: scale(1.03);
-}
+
 button:active {
   transform: scale(0.94);
-}/* =========================
+}
+
+/* 只有滑鼠才啟用 hover */
+@media (hover: hover) and (pointer: fine) {
+  button:hover {
+    background: rgba(34, 177, 76, 0.62);
+    transform: scale(1.03);
+  }
+}
+
+/* =========================
    頂部懸浮列
    ========================= */
 .container {
@@ -70,29 +82,36 @@ button:active {
   overflow: hidden;
   z-index: 999;
 }
+
 .title {
   position: relative;
   z-index: 2;
   color: #fff;
   text-align: left;
 }
+
 .content {
   margin-top: 96px;
   text-align: center;
 }
+
 .topimg {
   height: 60px;
   width: 60px;
   object-fit: contain;
   margin-right: 8px;
 }
+
 .bigimg {
   height: 256px;
   width: 256px;
 }
+
 .white {
   color: #fff;
-}/* =========================
+}
+
+/* =========================
    三 → 玻璃圓球
    ========================= */
 .menu-btn {
@@ -118,12 +137,18 @@ button:active {
   transition: transform 0.18s ease;
   z-index: 3;
 }
-.menu-btn:hover {
-  transform: scale(1.05);
-}
+
 .menu-btn:active {
   transform: scale(0.91);
-}/* =========================
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .menu-btn:hover {
+    transform: scale(1.05);
+  }
+}
+
+/* =========================
    懸浮側邊選單
    ========================= */
 .side-menu {
@@ -134,37 +159,47 @@ button:active {
   height: 83vh;
   max-height: 83vh;
   padding: 14px;
+
   background: rgba(34, 177, 76, 0.67);
   border: 1px solid rgba(255, 255, 255, 0.30);
   border-radius: 22px;
+
   backdrop-filter: blur(20px) saturate(140%);
   -webkit-backdrop-filter: blur(20px) saturate(140%);
+
   box-shadow:
     0 12px 30px rgba(0, 0, 0, 0.18),
     inset 1px 1px 2px rgba(255, 255, 255, 0.22);
+
   overflow-x: hidden;
   overflow-y: auto;
-  /*
-   * 關閉時縮在「三」的位置
-   */
+
   transform: translate(-4px, -4px) scale(0.08);
   transform-origin: 23px 23px;
+
   opacity: 0;
   visibility: hidden;
+
   transition:
     transform 0.42s cubic-bezier(0.175, 0.885, 0.32, 1.275),
     opacity 0.20s ease,
     visibility 0s linear 0.42s;
+
   z-index: 998;
-}/* 開啟：從三冒出來 */
+}
+
+/* 開啟：從三冒出來 */
 .side-menu.open {
   transform: translate(0, 0) scale(1);
   opacity: 1;
   visibility: visible;
+
   transition:
     transform 0.42s cubic-bezier(0.175, 0.885, 0.32, 1.275),
     opacity 0.20s ease;
-}/* =========================
+}
+
+/* =========================
    選單項目
    ========================= */
 .side-menu a {
@@ -176,22 +211,31 @@ button:active {
   color: #fff;
   font-size: 20px;
   text-decoration: none;
+
   border: 1px solid rgba(255, 255, 255, 0.20);
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.06);
+
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+
   box-shadow:
     inset 1px 1px 2px rgba(255, 255, 255, 0.18);
+
   transition:
     transform 0.18s ease,
     background 0.18s ease;
 }
-.side-menu a:hover {
-  text-decoration: none;
-  transform: translateX(3px);
-  background: rgba(255, 255, 255, 0.10);
-}/* =========================
+
+@media (hover: hover) and (pointer: fine) {
+  .side-menu a:hover {
+    text-decoration: none;
+    transform: translateX(3px);
+    background: rgba(255, 255, 255, 0.10);
+  }
+}
+
+/* =========================
    輸入框
    ========================= */
 input[type="text"] {
@@ -201,19 +245,51 @@ input[type="text"] {
   color: #fff;
   border-radius: 18px;
   background: rgba(34, 177, 76, 0.35);
+
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+
   box-shadow:
     0 4px 12px rgba(0, 0, 0, 0.10),
     inset 0 1px 1px rgba(255, 255, 255, 0.20);
-}/* =========================
-   原本卡片
+}
+
+/* =========================
+   玻璃卡片
    ========================= */
 .crad {
-  border-radius: 16px;
-  padding: 16px;
-  background-color: #c0e0b8;
+  position: relative;
+  width: min(90%, 520px);
+  margin: 16px auto;
+  padding: 20px;
+
   display: inline-block;
+
+  color: #fff;
   text-align: center;
-  width: 50%;
+
+  background: rgba(34, 177, 76, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 20px;
+
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.14),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.20);
+
+  overflow: hidden;
+}
+
+/* 卡片邊緣反射 */
+.crad::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: inherit;
+
+  pointer-events: none;
 }
