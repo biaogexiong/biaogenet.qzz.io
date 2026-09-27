@@ -244,7 +244,7 @@ input[type="text"] {
   padding: 10px 14px;
   color: #fff;
   border-radius: 18px;
-  background: rgba(34, 177, 76, 0.35);
+  background: rgba(34, 177, 76, 0.67);
 
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -265,7 +265,7 @@ input[type="text"] {
 
   display: inline-block;
 
-  color: #fff;
+  color: #000;
   text-align: center;
 
   background: rgba(192, 224, 184, 0.80);
