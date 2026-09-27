@@ -35,7 +35,7 @@ transform: scale(1.1) rotate(20deg);
 <div class="content">
 <h1>投硬幣</h1>
 <p id="result">按一下硬幣轉動硬幣</p>
-<img id="coin" src="https://biaogenet.qzz.io/images/coin_true.png" alt="硬幣">
+<img id="coin" src="https://biaogenet.qzz.io/images/toolimg/coin_true.png" alt="硬幣">
 </div>
 </body>
       <script>
@@ -44,17 +44,17 @@ transform: scale(1.1) rotate(20deg);
   
   coin.addEventListener('click', () => {
     // 播放動畫
-    coin.src = 'https://biaogenet.qzz.io/images/coin.gif';
+    coin.src = 'https://biaogenet.qzz.io/images/toolimg/coin.gif';
     result.textContent = '投擲中...';
 
     // 3秒後顯示結果
     setTimeout(() => {
       const isHeads = Math.random() < 0.5; // 50%機率
       if(isHeads){
-        coin.src = 'https://biaogenet.qzz.io/images/coin_true.png';
+        coin.src = 'https://biaogenet.qzz.io/images/toolimg/coin_true.png';
         result.textContent = '正面';
       } else {
-        coin.src = 'https://biaogenet.qzz.io/images/coin_flase.png';
+        coin.src = 'https://biaogenet.qzz.io/images/toolimg/coin_flase.png';
         result.textContent = '反面';
       }
     }, 2000);
