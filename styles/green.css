@@ -31,7 +31,7 @@ button {
   font-weight: bold;
   border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 16px;
-  background: rgba(34, 177, 76, 0.55);
+  background: rgba(34, 177, 76, 0.80);
   backdrop-filter: blur(14px) saturate(140%);
   -webkit-backdrop-filter: blur(14px) saturate(140%);
   box-shadow:
@@ -59,7 +59,7 @@ button:active {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(34, 177, 76, 0.80);
+  background: rgba(34, 177, 76, 0.67);
   border: 1px solid rgba(255, 255, 255, 0.30);
   border-radius: 20px;
   backdrop-filter: blur(18px) saturate(140%);
@@ -134,7 +134,7 @@ button:active {
   height: 83vh;
   max-height: 83vh;
   padding: 14px;
-  background: rgba(34, 177, 76, 0.55);
+  background: rgba(34, 177, 76, 0.67);
   border: 1px solid rgba(255, 255, 255, 0.30);
   border-radius: 22px;
   backdrop-filter: blur(20px) saturate(140%);
