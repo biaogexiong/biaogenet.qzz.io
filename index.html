@@ -41,44 +41,6 @@
   background-size: cover;
   background-position: center;
 }
-
-.skills-section {
-  padding: 30px 20px;
-  max-width: 900px;
-  margin: 40px auto;
-}
-
-.skills-section h2 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.skill-card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 16px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-.skill-title {
-  font-size: 18px;
-  margin-bottom: 8px;
-}
-
-.bar-bg {
-  background: #ddd;
-  border-radius: 10px;
-  overflow: hidden;
-  height: 18px;
-}
-
-.bar {
-  height: 100%;
-  width: 0;
-  background: linear-gradient(90deg, #22b14c, #22b1c2);
-  transition: width 1s ease;
-}
   </style>
 </head>
 <body>
@@ -129,29 +91,6 @@
       <p>🥭芒果</p>
       <p>💧開水</p>
     </div>
-    <section id="skills" class="skills-section">
-  <h1>我的技能</h1>
-
-  <div class="card">
-    <div class="skill-title">網頁設計 55%</div>
-    <div class="bar-bg"><div class="bar" data-level="55%"></div></div>
-  </div>
-
-  <div class="card">
-    <div class="skill-title">動畫製作與剪輯 88%</div>
-    <div class="bar-bg"><div class="bar" data-level="88%"></div></div>
-  </div>
-
-  <div class="card">
-    <div class="skill-title">Minecraft 建築 85%</div>
-    <div class="bar-bg"><div class="bar" data-level="85%"></div></div>
-  </div>
-
-  <div class="card">
-    <div class="skill-title">畫圖 82%</div>
-    <div class="bar-bg"><div class="bar" data-level="82%"></div></div>
-  </div>
-    </section>
      <h1>社交平台</h1>
      <button class="yt" onclick="OpenYoutube()"></button>
      <button class="dc" onclick="OpenDiscord()"></button>
@@ -160,16 +99,6 @@
     <img src="https://SiteStates.com/show/image/33697.png" border="0" alt="網站人數"/>
 
 <script src="https://cdn.jsdelivr.net/gh/ezshine/oneline.js@1.0.0/oneline.js"></script>
-<script>
-  window.addEventListener("load", () => {
-    document.querySelectorAll(".bar").forEach(bar => {
-      const level = bar.dataset.level;
-      setTimeout(() => {
-        bar.style.width = level;
-      }, 200);
-    });
-  });
-</script>
 <script>
     new Oneline("bgnet-index").on("OnelineUpdate", (e) => {
       document.getElementById("onlineCount").innerText = e.detail.count;
