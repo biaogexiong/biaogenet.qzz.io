@@ -5,20 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="錶哥熊工具-刮刮樂">
   <title>刮刮樂|biaogeNet</title>
-
-  <link rel="icon"
-        href="https://biaogenet.qzz.io/images/favicon.png"
-        type="image/png" />
-
-  <link rel="stylesheet"
-        href="https://biaogenet.qzz.io/styles/green.css">
-
+  <link rel="icon" href="https://biaogenet.qzz.io/images/favicon.png" type="image/png" />
+  <link rel="stylesheet" href="https://biaogenet.qzz.io/styles/green.css">
   <style>
-
-    /* =========================
-       刮刮樂專用樣式
-    ========================= */
-
     .scratch-settings {
       padding: 15px;
       margin-bottom: 20px;
@@ -120,8 +109,6 @@
       border-radius: 20px;
       pointer-events: none;
       z-index: 2;
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
     }
 
     .scratch-card.revealed .scratch-cover {
@@ -141,100 +128,43 @@
       position: relative;
       z-index: 1;
     }
-
   </style>
 </head>
 <body>
-<!-- =========================
-     頂部
-========================= -->
-
 <div class="container">
-
-  <div class="menu-btn"
-       onclick="OpenMenu()">
-    ☰
-  </div>
-
-  <img
-    class="topimg"
-    src="https://biaogenet.qzz.io/images/favicon.png"
-    alt="錶哥網小圖示"
-  />
-
-  <h3 class="title">
-    錶哥網|biaogeNet
-  </h3>
-
+  <div class="menu-btn" onclick="OpenMenu()">☰</div>
+  <img class="topimg" src="https://biaogenet.qzz.io/images/favicon.png" alt="錶哥網小圖示"/>
+  <h3 class="title">錶哥網|biaogeNet</h3>
 </div>
-<!-- =========================
-     側邊選單
-========================= -->
-
-<div id="sideMenu"
-     class="side-menu">
-
-  <a href="https://biaogenet.qzz.io">
-    錶哥網首頁
-  </a>
-
-  <a href="https://biaogenet.qzz.io/imagedow.html">
-    素材下載
-  </a>
-
-  <a href="https://biaogenet.qzz.io/appstore.html">
-    應用程式商店
-  </a>
-
-  <a href="https://biaogenet.qzz.io/coin.html">
-    投硬幣
-  </a>
-
-  <a href="https://biaogenet.qzz.io/pp.html">
-    隱私權政策
-  </a>
-
+<div id="sideMenu" class="side-menu">
+  <a href="https://biaogenet.qzz.io">錶哥網首頁</a>
 </div>
-<!-- =========================
-     網頁內容
-========================= -->
-
 <div class="content">
-
   <h1>幸運刮刮樂</h1>
+  <p>每行輸入一個獎項，開始遊戲後會自動隨機打亂順序。</p>
   <div class="scratch-settings">
-
-    <h3>自訂獎項</h3>
-
-    <p>
-      每行輸入一個獎項，開始遊戲後會自動隨機打亂順序。
-    </p>
-    <textarea id="scratchItems">錶哥熊
+  <textarea id="scratchItems">錶哥熊
 綠熊
 風格熊</textarea>
+    <label for="scratchPreset">請選擇刮刮樂模板</label>
+    <select id="scratchPreset" onchange="loadScratchPreset()"
+      style="width:100%;box-sizing:border-box;padding:12px;margin:8px 0 12px;border:1px solid #ccc;border-radius:12px;background:white;">
+      <option value="family">🐻三熊一家</option>
+      <option value="bomb">💣炸彈與熊</option>
+      <option value="truefalse">✅是真是假</option>
+      <option value="dice">🎲錶骰骰子</option>
+      <option value="food">🍚今日食物</option>
+      <option value="drink">🧋飯後飲品</option>
+      <option value="custom">✏️自訂</option>
+    </select>
     <div class="scratch-buttons">
-
-      <button
-        onclick="startScratch()">
-        打亂
-      </button>
-
-      <button
-        onclick="clearScratch()">
-        清空
-      </button>
-
-      <button
-        onclick="revealAllScratch()">
-        全部揭曉
-      </button>
-
+      <button onclick="startScratch()">打亂</button>
+      <button onclick="clearScratch()">清空</button>
+      <button onclick="revealAllScratch()">全部揭曉</button>
     </div>
-
   </div>
   <div id="scratchStatus"></div>
   <div id="scratchCards"></div>
-
 </div>
 <script>
 /* =========================
@@ -306,6 +236,35 @@ const scratchStatus =
   document.getElementById(
     "scratchStatus"
   );
+/* =========================
+   預設獎項組合
+========================= */
+
+const scratchPreset = document.getElementById("scratchPreset");
+
+function loadScratchPreset() {
+  const presets = {
+    family: ["錶哥熊", "綠熊", "風格熊"],
+    bomb: ["🐻", "🐻", "🐻", "🐻", "💣"],
+    truefalse: ["✅真(true)", "❌假(false)"],
+    dice: ["1", "2", "3", "4", "5", "6"],
+    food: ["🍜拉麵", "🍱便當", "🌯牛肉捲餅", "🍚大米飯", "🍙飯糰", "🍝義大利麵", "🍛印度咖哩"],
+    drink: ["💧白開水", "🧃鋁箔果汁", "🍼牛奶", "🧋珍珠奶茶", "🍵茶水", "☕咖啡", "🍺酒"]
+  };
+
+  if (scratchPreset.value === "custom") {
+    scratchItems.value = "";
+    scratchStatus.textContent = "已切換到自訂獎項，請自行輸入內容。";
+    return;
+  }
+
+  scratchItems.value = presets[scratchPreset.value].join("\n");
+  startScratch();
+}
+scratchItems.addEventListener("input", () => {
+  scratchPreset.value = "custom";
+});
+
 /* =========================
    隨機打亂
 ========================= */
@@ -747,4 +706,4 @@ startScratch();
 </script>
 
 </body>
-</html>
+</html></html>
