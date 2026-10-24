@@ -1,7 +1,7 @@
 {
   "id": "/",
   "name": "錶哥網|biaogeNet",
-  "short_name": "biaogenet",
+  "short_name": "錶哥網",
   "display": "standalone",
   "start_url": "/",
   "scope": "/",
