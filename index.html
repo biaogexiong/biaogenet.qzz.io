@@ -3,12 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="錶哥網是個充滿活力的網站，
-既美觀又漂亮。">
-  <title>錶哥網|biaogeNet</title>
+<meta name="description" content="錶哥網是個充滿活力的網站，既美觀又漂亮。">
+  <title>首頁|biaogeNet</title>
   <link rel="icon" href="https://biaogenet.qzz.io/images/favicon.png" type="image/png" />
   <link rel="stylesheet" href="https://biaogenet.qzz.io/styles/green.css">
-  <link rel="manifest" href="/manifest.webmanifest">
   <style>
      .yt {
   border: none;
@@ -42,6 +40,53 @@
   background-size: cover;
   background-position: center;
 }
+
+.bigtxt {
+  font-size: 60px;
+}
+
+#tips {
+  color: #676700;
+}
+
+
+.minicard {
+  position: relative;
+  width: 380px;
+  height: 380px;
+  min-height: 300px;
+  box-sizing: border-box;
+  margin: 8px;
+  padding: 20px;
+
+  display: inline-flex;
+  vertical-align: top;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  color: #000;
+  text-align: center;
+
+  background: rgba(192, 224, 184, 0.80);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 20px;
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.14),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.20);
+
+  overflow: hidden;
+}
+
+#randomCards {
+  text-align: center;
+}
+
+#changeCards {
+  margin: 12px;
+  cursor: pointer;
+}
+
   </style>
 </head>
 <body>
@@ -52,70 +97,21 @@
 </div>
 <div id="sideMenu" class="side-menu">
   <a href="https://biaogenet.qzz.io/index.html">錶哥網首頁</a>
-  <a href="https://biaogenet.qzz.io/imagedow.html">素材下載</a>
-  <a href="https://biaogenet.qzz.io/appstore.html">應用程式商店</a>
-  <a href="https://biaogenet.qzz.io/coin.html">投硬幣</a>
-  <a href="https://biaogenet.qzz.io/pp.html">隱私權政策</a>
+  <a href="https://biaogenet.qzz.io/tools/coin.html">投硬幣</a>
+  <a href="https://biaogenet.qzz.io/other/pp.html">隱私權政策</a>
 </div>
   <div class="content">
-    <h1>熊~歡迎來到錶哥熊的網頁</h1>
-    <h2>個熊介紹</h2>
-    <p>小名：錶哥熊</p>
-    <p>性別：♂️男性</p>
-    <p>生日：2015年11月14日<a href="https://biaogenet.qzz.io/birthday.html">小彩蛋→</a></p>
-    <p>星座：♏天蠍座</p>
-    <div class="crad">
-      <h1>喜好</h1>
-      <p>🎞️做動畫</p>
-      <p>🖥️編程</p>
-      <p>☘️Minecraft 模組設計</p>
-      <p>🖼️畫畫</p>
-      <p>🎤唱歌</p>
-    </div>
-     <h1></h1>
-    <div class="crad">
-      <h1>喜歡的食物</h1>
-      <p>🍉西瓜</p>
-      <p>🍪餅乾</p>
-      <p>🍬ACE軟糖</p>
-      <p>🥦花椰菜</p>
-      <p>🍇葡萄</p>
-      <p>✏️抹茶</p>
-      <p>🍵綠茶</p>
-    </div>
-     <h1></h1>
-    <div class="crad">
-      <h1>討厭的食物</h1>
-      <p>🍅番茄</p>
-      <p>🥒蔥</p>
-      <p>🍍榴槤</p>
-      <p>🥭芒果</p>
-      <p>💧開水</p>
-    </div>
-     <h1>社交平台</h1>
-     <button class="yt" onclick="OpenYoutube()"></button>
-     <button class="dc" onclick="OpenDiscord()"></button>
-     <button class="tk" onclick="OpenTiktok()"></button>
-     <h1>網站人數</h1>
-    <img src="https://SiteStates.com/show/image/33697.png" border="0" alt="網站人數"/>
+    <h1 id="conttitle">熊~你好！歡迎來到錶哥網</h1>
+    <p>✨ 錶哥網首頁大翻新！介紹錶哥熊現已移至 <a href="https://biaogenet.qzz.io/about.html">關於→</a></p>
+    <p id="tips">熊~冷知識未刷新。</p>
 
-<script src="https://cdn.jsdelivr.net/gh/ezshine/oneline.js@1.0.0/oneline.js"></script>
-<script>
-    new Oneline("bgnet-index").on("OnelineUpdate", (e) => {
-      document.getElementById("onlineCount").innerText = e.detail.count;
-    });
-  </script>
+<h2>建議功能</h2>
+<button id="changeCards" type="button">換一批</button>
+<a href="https://biaogenet.qzz.io/morefun.html">更多功能...</a>
+<div id="randomCards"></div>
+  </div>
 </body>
       <script>
-        function OpenYoutube() {
-            window.open("https://youtube.com/@biaogeYT", "_blank");
-        }
-        function OpenDiscord() {
-            window.open("https://discord.gg/ppVer9cqCe", "_blank");
-        }
-        function OpenTiktok() {
-            window.open("https://www.tiktok.com/@biaogetk", "_blank");
-        }
         function OpenMenu() {
             document.getElementById("sideMenu").classList.toggle("open");
         }
@@ -135,8 +131,169 @@ fetch("https://biaogenet.qzz.io/menu.json")
     }
   })
   .catch(err => {
-    sideMenu.innerHTML = "<a>選單載入失敗</a>";
-    console.error(err);
+    // 若選單 JSON 暫時無法載入，保留 HTML 內建選單。
+    console.error("選單載入失敗，使用內建選單：", err);
   });
   </script>
+  <script>
+const title = document.getElementById("title");
+
+function updateTitle() {
+    const hour = new Date().getHours();
+    let greeting;
+
+    if (hour >= 5 && hour < 12) {
+        greeting = "早安";
+    } else if (hour >= 12 && hour < 18) {
+        greeting = "午安";
+    } else {
+        greeting = "晚安";
+    }
+
+    conttitle.textContent = `熊~${greeting}！歡迎來到錶哥網`;
+}
+
+updateTitle();
+</script>
+<script>
+const tips = document.getElementById("tips");
+
+const facts = [
+    "早期錶哥網圖標與現在的不同。",
+    "錶哥熊其實早在2021年就存在了。",
+    "錶哥熊的英文是Biaoge Bear。",
+    "錶哥網早期竟然沒有液態玻璃效果！",
+    "應用商店其實被錶哥熊默默移除了。",
+    "素材下載？多數錶哥網用戶都不知道。",
+    "錶哥熊討厭蔥。",
+    "錶哥網簡稱BN，倒過來就是NB，所以錶哥網很牛逼！"
+];
+
+if (tips) {
+    tips.textContent =
+        `冷知識：` + facts[Math.floor(Math.random() * facts.length)];
+}
+</script>
+<script>
+  
+const cardList = [
+  {
+    icon: "ⓘ",
+    title: "關於",
+    description: "認識錶哥熊，以及錶哥網的故事。",
+    url: "https://biaogenet.qzz.io/about.html"
+  },
+  {
+    icon: "📝",
+    title: "幸運刮刮樂",
+    description: "試試手氣，還可以用來決定今天吃什麼！",
+    url: "https://biaogenet.qzz.io/tools/scratcher.html"
+  },
+  {
+    icon: "🎂",
+    title: "生日",
+    description: "查看錶哥熊的生日倒數。",
+    url: "https://biaogenet.qzz.io/birthday.html"
+  },
+  {
+    icon: "🔒",
+    title: "隱私權政策",
+    description: "了解錶哥網的隱私權政策。",
+    url: "https://biaogenet.qzz.io/pp.html"
+  },
+  {
+    icon: "🪙",
+    title: "投硬幣",
+    description: "讓硬幣幫你做出隨機選擇。",
+    url: "https://biaogenet.qzz.io/tools/coin.html"
+  },
+  {
+    icon: "▶️",
+    title: "Youtube",
+    description: "錶哥熊動畫官方Youtube頻道。",
+    url: "https://youtube.com/@biaogeYT"
+  },
+  {
+    icon: "💬",
+    title: "Discord",
+    description: "錶哥綜合台Discord群組。",
+    url: "https://discord.gg/ppVer9cqCe"
+  },
+   {
+    icon: "♪",
+    title: "抖音",
+    description: "錶哥熊的抖音頻道。",
+    url: "https://www.tiktok.com/@biaogetk"
+  },
+  {
+    icon: "?",
+    title: "神秘影片",
+    description: "神秘的Youtube小影片😈",
+    url: "https://youtu.be/dQw4w9WgXcQ"
+  }
+];
+
+const cardsContainer = document.getElementById("randomCards");
+const changeButton = document.getElementById("changeCards");
+
+let previousCards = [];
+
+
+function renderRandomCards() {
+  if (!cardsContainer || cardList.length === 0) return;
+
+  const count = Math.min(2, cardList.length);
+
+  // 先排除上一批出現過的卡片
+  let available = cardList.filter(card =>
+    !previousCards.includes(card.title)
+  );
+
+  // 但盡量避免與上一批重複
+  if (available.length < count) {
+    available = [...cardList];
+  }
+
+  // Fisher-Yates 洗牌，避免 sort(Math.random()) 的偏差
+  for (let i = available.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [available[i], available[j]] = [available[j], available[i]];
+  }
+
+  const selected = available.slice(0, count);
+  previousCards = selected.map(card => card.title);
+
+  cardsContainer.replaceChildren();
+
+  selected.forEach(card => {
+    const element = document.createElement("div");
+    element.className = "minicard";
+
+    const icon = document.createElement("h1");
+    icon.className = "bigtxt";
+    icon.textContent = card.icon;
+
+    const title = document.createElement("h2");
+    title.textContent = card.title;
+
+    const description = document.createElement("p");
+    description.textContent = card.description;
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = "進入";
+    button.addEventListener("click", () => {
+      location.href = card.url;
+    });
+
+    element.append(icon, title, description, button);
+    cardsContainer.appendChild(element);
+  });
+}
+
+changeButton.addEventListener("click", renderRandomCards);
+
+renderRandomCards();
+
+</script>
 </html>
