@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="錶哥熊是一隻可愛的熊！">
+  <title>關於|biaogeNet</title>
+  <link rel="icon" href="https://biaogenet.qzz.io/images/favicon.png" type="image/png" />
+  <link rel="stylesheet" href="https://biaogenet.qzz.io/styles/green.css">
+  <style>
+     .yt {
+  border: none;
+  cursor: pointer;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-image: url('https://biaogenet.qzz.io/images/youtube.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.dc {
+  border: none;
+  cursor: pointer;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-image: url('https://biaogenet.qzz.io/images/discord.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.tk {
+  border: none;
+  cursor: pointer;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-image: url('https://biaogenet.qzz.io/images/tiktok.png');
+  background-size: cover;
+  background-position: center;
+}
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="menu-btn" onclick="OpenMenu()">☰</div>
+  <img class="topimg" src="https://biaogenet.qzz.io/images/favicon.png" alt="錶哥網小圖示"/>
+  <h3 class="title">錶哥網|biaogeNet</h3>
+</div>
+<div id="sideMenu" class="side-menu">
+  <a href="https://biaogenet.qzz.io/index.html">錶哥網首頁</a>
+  <a href="https://biaogenet.qzz.io/tools/coin.html">投硬幣</a>
+  <a href="https://biaogenet.qzz.io/other/pp.html">隱私權政策</a>
+</div>
+  <div class="content">
+    <h1>關於錶哥網與錶哥熊</h1>
+    <h2>關於錶哥網</h2>
+      <div class="crad">
+        <img height="128" widht="128" src="https://biaogenet.qzz.io/images/favicon.png" alt="錶哥網圖示"/>
+        <h3></h3>
+        <h2>錶哥網的誕生</h2>
+        <p>在神秘暑假的某一天...</p>
+        <p>在房間裡的錶哥熊，想到了一個點子，</p>
+        <p>錶哥熊決定要架設一個個人網頁...</p>
+        <p>於是，錶哥網就這麼誕生了。</p>
+        <button id="readStoryBtn" type="button" onclick="toggleStoryReading()" aria-pressed="false">朗讀</button>
+      </div>
+    <h2>關於錶哥熊</h2>
+    <p>小名：錶哥熊</p>
+    <p>性別：♂️男性</p>
+    <p>生日：11月14日</p>
+    <p>星座：♏天蠍座</p>
+    <div class="crad">
+      <h1>喜好</h1>
+      <p>🎞️做動畫</p>
+      <p>🖥️編程</p>
+      <p>☘️Minecraft 模組設計</p>
+      <p>🖼️畫畫</p>
+      <p>🎤唱歌</p>
+    </div>
+     <h1></h1>
+    <div class="crad">
+      <h1>喜歡的食物</h1>
+      <p>🍉西瓜</p>
+      <p>🍪餅乾</p>
+      <p>🍬ACE軟糖</p>
+      <p>🥦花椰菜</p>
+      <p>🍇葡萄</p>
+      <p>✏️抹茶</p>
+      <p>🍵綠茶</p>
+    </div>
+     <h1></h1>
+    <div class="crad">
+      <h1>討厭的食物</h1>
+      <p>🍅番茄</p>
+      <p>🥒蔥</p>
+      <p>🍍榴槤</p>
+      <p>🥭芒果</p>
+      <p>💧開水</p>
+    </div>
+     <h2>社交平台</h2>
+     <button class="yt" aria-label="開啟 YouTube" onclick="OpenYoutube()"></button>
+     <button class="dc" aria-label="開啟 Discord" onclick="OpenDiscord()"></button>
+     <button class="tk" aria-label="開啟 TikTok" onclick="OpenTiktok()"></button>
+     <h1></h1>
+</body>
+      <script>
+        let storyIsSpeaking = false;
+
+        function toggleStoryReading() {
+            const button = document.getElementById("readStoryBtn");
+
+            if (!("speechSynthesis" in window) || !("SpeechSynthesisUtterance" in window)) {
+                button.textContent = "不支援";
+                button.disabled = true;
+                return;
+            }
+
+            if (storyIsSpeaking) {
+                window.speechSynthesis.cancel();
+                storyIsSpeaking = false;
+                button.textContent = "朗讀";
+                button.setAttribute("aria-pressed", "false");
+                return;
+            }
+
+            const story = [
+                "錶哥網的誕生。",
+                "在神秘暑假的某一天……",
+                "在房間裡的錶哥熊，想到了一個點子。",
+                "錶哥熊決定要架設一個個人網頁……",
+                "於是，錶哥網就這麼誕生了。"
+            ].join(" ");
+
+            const utterance = new SpeechSynthesisUtterance(story);
+            utterance.lang = "zh-TW";
+            utterance.rate = 0.9;
+            utterance.onend = function () {
+                storyIsSpeaking = false;
+                button.textContent = "朗讀";
+                button.setAttribute("aria-pressed", "false");
+            };
+            utterance.onerror = function () {
+                storyIsSpeaking = false;
+                button.textContent = "朗讀";
+                button.setAttribute("aria-pressed", "false");
+            };
+
+            window.speechSynthesis.cancel();
+            window.speechSynthesis.speak(utterance);
+            storyIsSpeaking = true;
+            button.textContent = "停止";
+            button.setAttribute("aria-pressed", "true");
+        }
+
+        function OpenYoutube() {
+            window.open("https://youtube.com/@biaogeYT", "_blank");
+        }
+        function OpenDiscord() {
+            window.open("https://discord.gg/ppVer9cqCe", "_blank");
+        }
+        function OpenTiktok() {
+            window.open("https://www.tiktok.com/@biaogetk", "_blank");
+        }
+        function OpenMenu() {
+            document.getElementById("sideMenu").classList.toggle("open");
+        }
+    </script>
+  <script>
+const sideMenu = document.getElementById("sideMenu");
+
+fetch("https://biaogenet.qzz.io/menu.json")
+  .then(r => r.json())
+  .then(menu => {
+    sideMenu.innerHTML = "";
+    for (const [name, url] of Object.entries(menu)) {
+      const a = document.createElement("a");
+      a.href = url;
+      a.textContent = name;
+      sideMenu.appendChild(a);
+    }
+  })
+  .catch(err => {
+    // 若選單 JSON 暫時無法載入，保留 HTML 內建選單。
+    console.error("選單載入失敗，使用內建選單：", err);
+  });
+  </script>
+  </html>
+  
