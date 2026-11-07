@@ -12,7 +12,7 @@
   font-size: 60px;
 }
 
-#tips {
+.tips {
   color: #676700;
   animation: tipsPulse 2s ease-in-out infinite;
 }
@@ -50,21 +50,6 @@
     inset 1px 1px 2px rgba(255, 255, 255, 0.20);
 
   overflow: hidden;
-}
-
-#randomCards {
-  text-align: center;
-  opacity: 1;
-  transition: opacity 0.25s ease;
-}
-
-#randomCards.fading {
-  opacity: 0;
-}
-
-#changeCards {
-  margin: 12px;
-  cursor: pointer;
 }
 
 
@@ -107,13 +92,89 @@
   font-size: 28px;
 }
 
+@media (max-width: 600px) {
+  .quick {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    width: min(100%, 620px);
+    margin: 16px auto;
+  }
+
+  .quick a {
+    min-height: 105px;
+    padding: 14px 8px;
+    gap: 7px;
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  .quick a::first-line {
+    font-size: 23px;
+  }
+}
+
+@media (max-width: 360px) {
+  .quick {
+    gap: 8px;
+  }
+
+  .quick a {
+    min-height: 92px;
+    padding: 12px 5px;
+    font-size: 14px;
+  }
+
+  .quick a::first-line {
+    font-size: 21px;
+  }
+}
+
 .quick a:active {
   background: rgba(172, 204, 164, 0.95);
+  transform: scale(0.93);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .quick a:hover {
+    background: rgba(182, 214, 174, 0.95);
+    transform: scale(1.03);
+  }
+}
+
+.easterContent {
+  margin-top: 96px;
+  text-align: center;
+}
+
+.container.drop {
+   position: fixed;
+   z-index: 20;
+   animation: containerDrop 0.75s cubic-bezier(.34, 1.56, .64, 1) forwards;
+}
+
+@keyframes containerDrop {
+    0% { transform: translateY(0); }
+    72% { transform: translateY(calc(100vh - 100% - 12px)); }
+    86% { transform: translateY(calc(100vh - 100% - 24px)); }
+    100% { transform: translateY(calc(100vh - 100% - 12px)); }
+}
+
+.side-menu.drop {
+   position: fixed;
+   z-index: 19;
+   animation: SideMenuDrop 0.75s cubic-bezier(.34, 1.56, .64, 1) forwards;
+}
+
+@keyframes SideMenuDrop {
+    0% { transform: translateY(0); }
+    72% { transform: translateY(calc(100vh - 100% - 12px)); }
+    86% { transform: translateY(calc(100vh - 100% - 24px)); }
+    100% { transform: translateY(calc(100vh - 100% - 12px)); }
 }
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container" id="container">
     <button class="menu-btn" id="menuButton" type="button"
   onclick="OpenMenu()"
   aria-expanded="false">☰</button>
@@ -130,7 +191,12 @@
   <div class="content">
     <h1 id="heading" ondblclick="EasterEgg()">熊~你好！歡迎來到錶哥網</h1>
     <p id="engheading">Hello,Welocme to biaogeNet</p>
-    <p id="tips">熊~冷知識載入中……</p>
+    <p id="tips" onclick="RndTips()" class="tips">熊~冷知識載入中……</p>
+    <h2>⏰ 現在時間</h2>
+    <div class="crad">
+      <h3 id="homeClock">熊~時間載入中……</h3>
+      <p id="homeDate">熊~日期載入中……</p>
+     </div>
     <h2>🚀 快捷入口</h2>
     <p>「快捷入口」既方便又快速。</p>
     <div class="quick">
@@ -138,25 +204,40 @@
       <a href="https://biaogenet.qzz.io/tools/coin.html">🪙<br>投硬幣</a>
       <a href="https://biaogenet.qzz.io/tools/scratcher.html">📝<br>刮刮樂</a>
     </div>
-    <h2>🎲 隨機推薦</h2>
-    <p>每換的一批，都能讓你探索不一樣的錶哥網！</p>
-    <button id="changeCards" type="button">換一批</button>
-    <a href="https://biaogenet.qzz.io/morefun.html">更多功能...</a>
-    <div id="randomCards" aria-live="polite"></div>
-    <h2>特殊符號</h2>
-    <p>熊~在錶哥網才顯示的了</p>
-    <p>描邊錶哥熊 </p>
-    <p>填滿錶哥熊 </p>
+    <h2>🏷️ 隨機熊名</h2>
+    <p id="RndNameResult">熊~熊名載入中……</p>
+    <button onclick="RndBearName()">換一個</button>
     <h3></h3>
   </div>
-
+  <div class="easterContent">
+    <h1>熊~恭喜你發現了！</h1>
+    <p>你找到了一個平常不會出現的地方</p>
+    <p id="hiddenTips" onclick="RndHiddenTips()" class="tips">熊~隱藏知識載入中……</p>
+    <h2>🧭 探索此陌生之地</h2>
+    <div class="quick">
+      <a href="https://web.archive.org/web/https://biaogenet.qzz.io/imagedow.html">⬇️<br>舊素材下載</a>
+      <a onclick="MenuDrop()">🔨<br>選單掉落</a>
+      <a onclick="EasterBack()">↩️<br>返回</a>
+    </div>
+    <h2>🥚 已知彩蛋</h2>
+    <div class="crad">
+      <h2 id="knowEggTitle">進入本頁</h2>
+      <p id="knowEggText">雙擊首頁的大標題</p>
+      <p id="knowEggCount">1/3</p>
+      <button onclick="PreKnowEgg()">←</button>
+      <button onclick="NextKnowEgg()">→</button>
+    </div>
+  <h3></h3>
+  </div>
   <script>
-    // 側邊選單
     function OpenMenu() {
-      document.getElementById("sideMenu").classList.toggle("open");
+      const menu = document.getElementById("sideMenu");
+      const button = document.getElementById("menuButton");
+      const isOpen = menu.classList.toggle("open");
+      if (button) button.setAttribute("aria-expanded", String(isOpen));
     }
 
-    // 載入網站選單；失敗時保留 HTML 內建連結
+
     const sideMenu = document.getElementById("sideMenu");
     fetch("https://biaogenet.qzz.io/menu.json")
       .then(response => {
@@ -174,7 +255,8 @@
       })
       .catch(error => console.error("選單載入失敗，使用內建選單：", error));
 
-    // 依照時間更新歡迎文字
+    const DropSound = new Audio("https://biaogenet.qzz.io/sounds/drop.mp3");
+    
     function updateTitle() {
       const hour = new Date().getHours();
       let greeting;
@@ -184,6 +266,9 @@
 
       const heading = document.getElementById("heading");
       if (heading) heading.textContent = `熊~${greeting}！歡迎來到錶哥網`;
+      document.querySelector(".easterContent").style.display = "none";
+      DropSound.preload = "auto";
+      DropSound.load();
     }
     updateTitle();
     
@@ -199,157 +284,166 @@
     }
     updateEngTitle();
     
-    let eggcount = 0
     function EasterEgg() {
-      eggcount = eggcount + 1
-      if (eggcount === 67) {
-        alert("熊~恭喜你啊！欸？67！");
-      } else if (eggcount >= 4) {
-        alert("熊~真的沒東西了！");
-      } else {
-        alert("熊？你怎麼找到的？");
-      }
+      document.querySelector(".content").style.display = "none";
+      document.querySelector(".easterContent").style.display = "block";
+    }
+    
+    function EasterBack() {
+      document.querySelector(".easterContent").style.display = "none";
+      document.querySelector(".content").style.display = "block";
     }
 
-    // 隨機冷知識
     const facts = [
       "早期錶哥網圖標與現在的不同。",
-      "錶哥熊其實早在2021年就存在了。",
       "錶哥熊的英文是Biaoge Bear。",
       "錶哥網早期竟然沒有液態玻璃效果！",
       "應用商店其實被錶哥熊默默移除了。",
       "素材下載？多數錶哥網用戶都不知道。",
       "錶哥熊討厭蔥。",
-      "錶哥網簡稱BN，倒過來就是NB，所以錶哥網很牛逼！"
+      "錶哥網簡稱BN，倒過來就是NB，所以錶哥網很牛逼！",
+      "熊愛吃蜂蜜，錶哥熊也是如此。",
+      "點我一下可以換一個冷知識。",
+      "隨便的亂點，會有驚喜(應該吧)"
     ];
-    const tips = document.getElementById("tips");
-    if (tips) tips.textContent = "冷知識：" + facts[Math.floor(Math.random() * facts.length)];
-
-    // 首頁隨機卡片
-    const cardList = [
+    
+    const hiddentips = [
+      "早期，錶哥熊有一隻他非常喜歡的手錶，錶哥熊就這麼誕生了。",
+      "錶哥熊其實早在2021年就存在了。",
+      "錶哥熊的某些帳號其實是用學校Mail註冊的。",
+      "可以在網路檔案館中找到舊的錶哥網。",
+      "點進舊版素材下載，就能找到舊版錶哥網啦！",
+      "錶哥在高熊=錶哥熊在高雄。"
+    ];
+    
+    const EasterEggs = [
       {
-        icon: "ⓘ",
-        title: "關於",
-        description: "認識錶哥熊，以及錶哥網的故事。",
-        url: "https://biaogenet.qzz.io/about.html"
+        "title": "進入本頁",
+        "text": "雙擊首頁的大標題"
       },
       {
-        icon: "📝",
-        title: "幸運刮刮樂",
-        description: "試試手氣，還可以用來決定今天吃什麼！",
-        url: "https://biaogenet.qzz.io/tools/scratcher.html"
+        "title": "生日入口",
+        "text": "雙擊關於頁中的「生日」即可打開錶哥熊解凍倒數"
       },
       {
-        icon: "🎂",
-        title: "生日",
-        description: "查看錶哥熊的生日倒數。",
-        url: "https://biaogenet.qzz.io/birthday.html"
-      },
-      {
-        icon: "🔒",
-        title: "隱私權政策",
-        description: "了解錶哥網的隱私權政策。",
-        url: "https://biaogenet.qzz.io/pp.html"
-      },
-      {
-        icon: "🪙",
-        title: "投硬幣",
-        description: "讓硬幣幫你做出隨機選擇。",
-        url: "https://biaogenet.qzz.io/tools/coin.html"
-      },
-      {
-        icon: "▶️",
-        title: "Youtube",
-        description: "錶哥熊動畫官方Youtube頻道。",
-        url: "https://youtube.com/@biaogeYT"
-      },
-      {
-        icon: "💬",
-        title: "Discord",
-        description: "錶哥綜合台Discord群組。",
-        url: "https://discord.gg/ppVer9cqCe"
-      },
-      {
-        icon: "♪",
-        title: "抖音",
-        description: "錶哥熊的抖音頻道。",
-        url: "https://www.tiktok.com/@biaogetk"
-      },
-      {
-        icon: "?",
-        title: "神秘影片",
-        description: "神秘的Youtube小影片😈",
-        url: "https://youtu.be/dQw4w9WgXcQ"
+        "title": "愚人彩蛋",
+        "text": "在愚人節當天雙擊時鐘，網頁中的文字會集體熊化"
       }
     ];
+    
+    function RndTips() {
+      const tips = document.getElementById("tips");
+      if (tips) tips.textContent = "冷知識：" + facts[Math.floor(Math.random() * facts.length)];
+    }
+    
+    RndTips();
+    
+    function RndHiddenTips() {
+      const tips = document.getElementById("hiddenTips");
+      if (tips) tips.textContent = "隱藏知識：" + hiddentips[Math.floor(Math.random() * hiddentips.length)];
+    }
+    
+    RndHiddenTips();
+ 
+    function updateClock() {
+      const now = new Date();
+      const homeClock = document.getElementById("homeClock");
+      if (!homeClock) return;
 
-    const cardsContainer = document.getElementById("randomCards");
-    const changeButton = document.getElementById("changeCards");
-    let previousCards = [];
-    let isChangingCards = false;
-
-    function renderRandomCards() {
-      if (!cardsContainer || cardList.length === 0) return;
-
-      const count = Math.min(2, cardList.length);
-      let available = cardList.filter(card => !previousCards.includes(card.title));
-      if (available.length < count) available = [...cardList];
-
-      // Fisher-Yates 洗牌
-      for (let i = available.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [available[i], available[j]] = [available[j], available[i]];
-      }
-
-      const selected = available.slice(0, count);
-      previousCards = selected.map(card => card.title);
-      cardsContainer.replaceChildren();
-
-      selected.forEach(card => {
-        const element = document.createElement("div");
-        element.className = "minicard";
-
-        const icon = document.createElement("h1");
-        icon.className = "bigtxt";
-        icon.textContent = card.icon;
-
-        const title = document.createElement("h2");
-        title.textContent = card.title;
-
-        const description = document.createElement("p");
-        description.textContent = card.description;
-
-        const button = document.createElement("button");
-        button.type = "button";
-        button.textContent = "進入";
-        button.addEventListener("click", () => {
-          window.location.href = card.url;
-        });
-
-        element.append(icon, title, description, button);
-        cardsContainer.appendChild(element);
+      homeClock.textContent = now.toLocaleTimeString("zh-TW", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false
       });
     }
 
-    // 點擊換一批：淡出、更新卡片、淡入
-    changeButton.addEventListener("click", () => {
-      if (isChangingCards) return;
-      isChangingCards = true;
-      cardsContainer.classList.add("fading");
+    updateClock();
+    setInterval(updateClock, 1000);
 
-      window.setTimeout(() => {
-        renderRandomCards();
-        // 強制瀏覽器先套用淡出狀態，再移除 class 觸發淡入
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            cardsContainer.classList.remove("fading");
-            isChangingCards = false;
-          });
-        });
-      }, 250);
-    });
+    function updateDate() {
+      const now = new Date();
+      const homeDate = document.getElementById("homeDate");
+      if (!homeDate) return;
+
+      const dateText = now.toLocaleDateString("zh-TW", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        weekday: "long"
+      });
+
+      const isBirthday = now.getMonth() === 10 && now.getDate() === 14;
+      const isAprilFool = now.getMonth() === 3 && now.getDate() === 1;
+      
+      homeDate.textContent = isBirthday
+        ? "🎂 " + dateText
+        : dateText;
+        
+      homeDate.textContent = isAprilFool
+        ? "愚 " + dateText
+        : dateText;
+    }
+
+    updateDate();
     
-    renderRandomCards();
+    function RndBearName() {
+      const colors = ["紅", "橙", "黃", "綠", "藍", "紫", "粉", "白", "黑", "灰", "棕", "青", "金", "銀"];
+      const shapes = ["星", "心", "圓", "方", "扁", "長"];
+      const first = colors[Math.floor(Math.random() * colors.length)];
+      const secondWords = [...colors, ...shapes]
+        .filter(word => word !== first);
+      const second = secondWords[Math.floor(Math.random() * secondWords.length)];
+    
+      document.getElementById("RndNameResult").textContent = "你的專屬熊名：" + first + second + "熊";
+    }
+
+    RndBearName();
+        
+    let KnowEggCountVar = 0;
+
+    function UpdateKnowEgg() {
+      const title = document.getElementById("knowEggTitle");
+      const text = document.getElementById("knowEggText");
+      const count = document.getElementById("knowEggCount");
+      if (!title || !text || !count || EasterEggs.length === 0) return;
+
+      const egg = EasterEggs[KnowEggCountVar];
+      title.textContent = egg.title;
+      text.textContent = egg.text;
+      count.textContent = (KnowEggCountVar + 1) + "/" + EasterEggs.length;
+    }
+
+    function PreKnowEgg() {
+      KnowEggCountVar =
+        (KnowEggCountVar - 1 + EasterEggs.length) % EasterEggs.length;
+      UpdateKnowEgg();
+    }
+
+    function NextKnowEgg() {
+      KnowEggCountVar = (KnowEggCountVar + 1) % EasterEggs.length;
+      UpdateKnowEgg();
+    }
+
+    UpdateKnowEgg();
+
+    function MenuDrop() {
+      const container = document.getElementById("container");
+      const menu = document.getElementById("sideMenu");
+
+      // 移除再加入 class，讓動畫可以重複觸發。
+      container.classList.remove("drop");
+      menu.classList.remove("drop");
+      void container.offsetWidth;
+      void menu.offsetWidth;
+      container.classList.add("drop");
+      menu.classList.add("drop");
+
+      DropSound.currentTime = 0;
+      DropSound.play().catch(error => {
+        console.warn("掉落音效無法播放：", error);
+      });
+    }
   </script>
 </body>
 </html>
