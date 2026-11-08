@@ -171,6 +171,38 @@
     86% { transform: translateY(calc(100vh - 100% - 24px)); }
     100% { transform: translateY(calc(100vh - 100% - 12px)); }
 }
+
+.date-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.date-row #homeDate {
+  margin: 0;
+}
+
+.activity {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 30px;
+  width: 30px;
+  min-width: 30px;
+  height: 30px;
+  box-sizing: border-box;
+  color: #fff;
+  background: #777;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+  user-select: none;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
   </style>
 </head>
 <body>
@@ -195,7 +227,10 @@
     <h2>⏰ 現在時間</h2>
     <div class="crad">
       <h3 id="homeClock">熊~時間載入中……</h3>
-      <p id="homeDate">熊~日期載入中……</p>
+      <div class="date-row">
+        <span class="activity" id="todayActivity" title="今日沒有特殊活動" onclick="OpenActivity()">無</span>
+        <p id="homeDate" ondblclick="AprilFool()">熊~日期載入中……</p>
+      </div>
      </div>
     <h2>🚀 快捷入口</h2>
     <p>「快捷入口」既方便又快速。</p>
@@ -216,7 +251,7 @@
     <h2>🧭 探索此陌生之地</h2>
     <div class="quick">
       <a href="https://web.archive.org/web/https://biaogenet.qzz.io/imagedow.html">⬇️<br>舊素材下載</a>
-      <a onclick="MenuDrop()">🔨<br>選單掉落</a>
+      <a onclick="MenuDrop()" id="menuDropBtn">🔨<br>選單掉落</a>
       <a onclick="EasterBack()">↩️<br>返回</a>
     </div>
     <h2>🥚 已知彩蛋</h2>
@@ -236,7 +271,6 @@
       const isOpen = menu.classList.toggle("open");
       if (button) button.setAttribute("aria-expanded", String(isOpen));
     }
-
 
     const sideMenu = document.getElementById("sideMenu");
     fetch("https://biaogenet.qzz.io/menu.json")
@@ -328,9 +362,32 @@
       {
         "title": "愚人彩蛋",
         "text": "在愚人節當天雙擊時鐘，網頁中的文字會集體熊化"
+      },
+      {
+        "title": "錶網藍屏",
+        "text": "在404中雙擊錶哥熊，畫面會變成早期藍屏風格"
       }
     ];
     
+      const todayActivities = [
+        {
+          "id": "bgbirthday",
+          "month": 11,
+          "day": 14,
+          "icon": "錶",
+          "color": "#22b14c",
+          "title": "今天是錶哥熊生日！"
+        },
+        {
+          "id": "aprilfool",
+          "month": 4,
+          "day": 1,
+          "icon": "愚",
+          "color": "#e6a12a",
+          "title": "愚人節彩蛋：雙擊日期試試看"
+        }
+      ];
+
     function RndTips() {
       const tips = document.getElementById("tips");
       if (tips) tips.textContent = "冷知識：" + facts[Math.floor(Math.random() * facts.length)];
@@ -364,7 +421,8 @@
     function updateDate() {
       const now = new Date();
       const homeDate = document.getElementById("homeDate");
-      if (!homeDate) return;
+      const todayActivity = document.getElementById("todayActivity");
+      if (!homeDate || !todayActivity) return;
 
       const dateText = now.toLocaleDateString("zh-TW", {
         year: "numeric",
@@ -373,19 +431,37 @@
         weekday: "long"
       });
 
-      const isBirthday = now.getMonth() === 10 && now.getDate() === 14;
-      const isAprilFool = now.getMonth() === 3 && now.getDate() === 1;
-      
-      homeDate.textContent = isBirthday
-        ? "🎂 " + dateText
-        : dateText;
-        
-      homeDate.textContent = isAprilFool
-        ? "愚 " + dateText
-        : dateText;
+      const activity = todayActivities.find(item =>
+       item.month === now.getMonth() + 1 &&
+       item.day === now.getDate()
+     );
+
+      todayActivity.textContent = activity ? activity.icon : "無";
+      todayActivity.style.backgroundColor = activity ? activity.color : "#777";
+      todayActivity.title = activity ? activity.title : "今日沒有特殊活動";
+      todayActivity.dataset.activityId = activity ? activity.id : "none";
+
+      homeDate.textContent = dateText;
     }
 
     updateDate();
+
+    function OpenActivity() {
+      const now = new Date();
+      const activity = todayActivities.find(item =>
+        item.month === now.getMonth() + 1 &&
+        item.day === now.getDate()
+      );
+      if (!activity) {
+        alert("熊~今日沒有特殊活動！");
+        return;
+      }
+      alert(`熊~今日活動資訊
+━━━━━━━━━━
+活動ID：${activity.id}
+活動說明：${activity.title}
+活動日期：${activity.month} 月 ${activity.day} 日`);
+    }
     
     function RndBearName() {
       const colors = ["紅", "橙", "黃", "綠", "藍", "紫", "粉", "白", "黑", "灰", "棕", "青", "金", "銀"];
@@ -430,18 +506,77 @@
     function MenuDrop() {
       const container = document.getElementById("container");
       const menu = document.getElementById("sideMenu");
-
-      // 移除再加入 class，讓動畫可以重複觸發。
-      container.classList.remove("drop");
-      menu.classList.remove("drop");
+      const button = document.getElementById("menuDropBtn");
+    
+      if (!container || !menu || !button) return;
+    
       void container.offsetWidth;
       void menu.offsetWidth;
-      container.classList.add("drop");
-      menu.classList.add("drop");
+    
+      container.classList.toggle("drop");
+      menu.classList.toggle("drop");
+    
+      const isDropped =
+        container.classList.contains("drop") &&
+        menu.classList.contains("drop");
+    
+      if (isDropped) {
+        button.innerHTML = "⬆️<br>選單返回";
+    
+        DropSound.currentTime = 0;
+        DropSound.play().catch(error => {
+          console.warn("掉落音效無法播放：", error);
+        });
+      } else {
+        button.innerHTML = "🔨<br>選單掉落";
+      }
+    }
+    
+    function AprilFool() {
+      const now = new Date();
+      const isAprilFool = now.getMonth() === 3 && now.getDate() === 1;
+      if (isAprilFool === true) AprilFoolsBear();
+    }
+    
+    
+    function AprilFoolsBear() {
+      const selectors = "p, a, h1, h2, h3, button";
 
-      DropSound.currentTime = 0;
-      DropSound.play().catch(error => {
-        console.warn("掉落音效無法播放：", error);
+      document.querySelectorAll(selectors).forEach(element => {
+        if (!element.dataset.bearOriginal) {
+          element.dataset.bearOriginal = element.innerHTML;
+        }
+
+        function transform(node) {
+          if (node.nodeType === Node.TEXT_NODE) {
+            node.textContent = Array.from(node.textContent).map(char => {
+              // 保留空格、標點符號及 Emoji
+              if (
+                /\s/u.test(char) ||
+                /[\p{P}\p{S}]/u.test(char)
+              ) {
+                return char;
+              }
+
+              return "熊";
+            }).join("");
+          } else {
+            node.childNodes.forEach(transform);
+          }
+        }
+
+        transform(element);
+      });
+    }
+
+    function AprilFoolsBearRestore() {
+      document.querySelectorAll(
+        "p, a, h1, h2, h3, button"
+      ).forEach(element => {
+        if (element.dataset.bearOriginal) {
+          element.innerHTML = element.dataset.bearOriginal;
+          delete element.dataset.bearOriginal;
+        }
       });
     }
   </script>
