@@ -1,96 +1,210 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="錶哥熊生日小彩蛋">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="錶哥熊生日解凍倒數">
+  <meta name="theme-color" content="#22b14c">
   <title>生日|biaogeNet</title>
-  <link rel="icon" href="https://biaogenet.qzz.io/images/favicon.png" type="image/png" />
+  <link rel="icon" href="https://biaogenet.qzz.io/images/favicon.png" type="image/png">
   <link rel="stylesheet" href="https://biaogenet.qzz.io/styles/green.css">
-    <style>
-      .box {
-position:relative;
-      width:280px;
-      height:280px;
-      margin:20px auto
-}
-
-.box img {
-position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      object-fit:contain
-}
-
-#ice {
-transition:.5s
-}
-
-.progress {
-width:90%;
-      max-width:420px;
-      height:24px;
-      background:#ddd;
-      border-radius:99px;
-      overflow:hidden;
-      margin:auto
-}
-
-.bar {
-height:100%;
+  <style>
+    .birthday-title {
+      margin: 0 0 8px;
+      font-size: clamp(23px, 5vw, 32px);
+    }
+    .birthday-subtitle {
+      opacity: .7;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    .box {
+      position: relative;
+      width: min(280px, 75vw);
+      aspect-ratio: 1;
+      margin: 20px auto;
+      filter: drop-shadow(0 8px 12px rgba(0,0,0,.12));
+    }
+    .box img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    #ice {
+      transition: clip-path .6s ease;
+    }
+    .percent {
+      font-size: clamp(30px, 7vw, 42px);
+      font-weight: 800;
+      margin: 15px 0 5px;
+      color: #22b14c;
+    }
+    .day {
+      font-size: 17px;
+      font-weight: 600;
+      margin: 10px 0 20px;
+      line-height: 1.7;
+    }
+    .progress {
+      width: 90%;
+      max-width: 420px;
+      height: 18px;
+      background: rgba(128,128,128,.2);
+      border-radius: 99px;
+      overflow: hidden;
+      margin: 0 auto;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,.08);
+    }
+    .bar {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
       background: linear-gradient(90deg, #22b14c, #22b1c2);
-      width:0
-}
-   </style>
+      transition: width .8s ease;
+    }
+    .birthday-date {
+      margin-top: 18px;
+      font-size: 13px;
+      opacity: .65;
+    }
+    .birthday-card.is-birthday {
+      border-color: rgba(34,177,76,.5);
+      box-shadow: 0 8px 35px rgba(34,177,76,.18);
+    }
+    .birthday-card.is-birthday .day {
+      color: #22b14c;
+      font-size: 22px;
+    }
+    @media (max-width: 480px) {
+      .birthday-card {
+        padding: 20px 12px;
+        margin: 16px auto;
+      }
+      .box {
+        margin: 15px auto;
+      }
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-  <div class="menu-btn" onclick="OpenMenu()">☰</div>
-  <img class="topimg" src="https://biaogenet.qzz.io/images/favicon.png" alt="錶哥網小圖示"/>
-  <h3 class="title">錶哥網|biaogeNet</h3>
-</div>
-<div id="sideMenu" class="side-menu">
-  <a href="https://biaogenet.qzz.io">錶哥網首頁</a>
-  <a href="https://biaogenet.qzz.io/imagedow.html">素材下載</a>
-  <a href="https://biaogenet.qzz.io/appstore.html">應用程式商店</a>
-  <a href="https://biaogenet.qzz.io/coin.html">投硬幣</a>
-  <a href="https://biaogenet.qzz.io/pp.html">隱私權政策</a>
- </div>
-<div class="content">
-<h1>錶哥熊解凍倒數</h1>
-  <div class="box">
-    <img src="https://biaogenet.qzz.io/images/toolimg/biaoge_new.png" alt="錶哥熊">
-    <img id="ice" src="https://biaogenet.qzz.io/images/toolimg/biaoge_ice_new.png" alt="冰塊">
+  <div class="container">
+    <div class="menu-btn" onclick="OpenMenu()">☰</div>
+    <img class="topimg"
+      src="https://biaogenet.qzz.io/images/favicon.png"
+      alt="錶哥網小圖示">
+    <h3 class="title">錶哥網|biaogeNet</h3>
   </div>
-  <h2 id="percent"></h2>
-  <h3 id="day"></h3>
-    <div class="progress">
-      <div class="bar" id="bar">
+  <div id="sideMenu" class="side-menu">
+    <a href="https://biaogenet.qzz.io">錶哥網首頁</a>
+    <a href="https://biaogenet.qzz.io/tools/coin.html">投硬幣</a>
+    <a href="https://biaogenet.qzz.io/other/pp.html">隱私權政策</a>
+  </div>
+  <div class="content">
+    <div class="birthday-card" id="birthdayCard">
+      <h1 class="birthday-title" id="birthdayTitle">
+        錶哥熊解凍倒數
+      </h1>
+      <div class="birthday-subtitle" id="birthdaySubtitle">
+        等待冰塊逐漸融化……
       </div>
+      <div class="box">
+        <img
+          src="https://biaogenet.qzz.io/images/toolimg/biaoge_new.png"
+          alt="錶哥熊">
+        <img
+          id="ice"
+          src="https://biaogenet.qzz.io/images/toolimg/biaoge_ice_new.png"
+          alt="冰塊">
+      </div>
+      <div class="percent" id="percent">0.0%</div>
+      <div class="day" id="day">正在計算解凍時間……</div>
+      <div class="progress">
+        <div class="bar" id="bar"></div>
+      </div>
+      <div class="birthday-date" id="birthdayDate"></div>
     </div>
-</div>
-<script>
-const sideMenu = document.getElementById("sideMenu");
-
-function OpenMenu() {
-  sideMenu.classList.toggle("open");
-}
-
-fetch("https://biaogenet.qzz.io/menu.json")
-  .then(r => r.json())
-  .then(menu => {
-    sideMenu.innerHTML = "";
-    for (const [name, url] of Object.entries(menu)) {
-      const a = document.createElement("a");
-      a.href = url;
-      a.textContent = name;
-      sideMenu.appendChild(a);
+  </div>
+  <script>
+    const sideMenu = document.getElementById("sideMenu");
+    function OpenMenu() {
+      sideMenu.classList.toggle("open");
     }
-  })
-  .catch(err => {
-    sideMenu.innerHTML = "<a>選單載入失敗</a>";
-    console.error(err);
-  });
-let n=new Date(),y=n.getFullYear(),b=new Date(y,10,14);if(n>b)b=new Date(y+1,10,14);let s=new Date(b.getFullYear()-1,10,14),p=Math.min(Math.max((n-s)/(b-s),0),1);percent.textContent="已解凍 "+(p*100).toFixed(1)+"%";bar.style.width=(p*100)+"%";ice.style.clipPath=`inset(${p*100}% 0 0 0)`;day.textContent=((d)=>d>0?`還有 ${d} 天解凍完成 `:"錶哥熊生日快樂！")(Math.ceil((b-n)/86400000));</script>
+    fetch("https://biaogenet.qzz.io/menu.json")
+      .then(response => {
+        if (!response.ok) throw new Error("選單載入失敗");
+        return response.json();
+      })
+      .then(menu => {
+        sideMenu.innerHTML = "";
+        for (const [name, url] of Object.entries(menu)) {
+          const link = document.createElement("a");
+          link.href = url;
+          link.textContent = name;
+          sideMenu.appendChild(link);
+        }
+      })
+      .catch(error => {
+        console.error("選單載入失敗，使用內建選單：", error);
+      });
+    function UpdateBirthday() {
+      const now = new Date();
+      const percent = document.getElementById("percent");
+      const day = document.getElementById("day");
+      const bar = document.getElementById("bar");
+      const ice = document.getElementById("ice");
+      const card = document.getElementById("birthdayCard");
+      const title = document.getElementById("birthdayTitle");
+      const subtitle = document.getElementById("birthdaySubtitle");
+      const birthdayDate = document.getElementById("birthdayDate");
+      const isBirthday =
+        now.getMonth() === 10 &&
+        now.getDate() === 14;
+      let birthday = new Date(
+        now.getFullYear(), 10, 14
+      );
+      if (now >= birthday) {
+        birthday = new Date(
+          now.getFullYear() + 1, 10, 14
+        );
+      }
+      const previousBirthday = new Date(
+        birthday.getFullYear() - 1, 10, 14
+      );
+      const progress = isBirthday
+        ? 1
+        : Math.min(Math.max(
+            (now - previousBirthday) /
+            (birthday - previousBirthday),
+            0
+          ), 1);
+      const percentage = progress * 100;
+      if (isBirthday) {
+        card.classList.add("is-birthday");
+        title.textContent = "🎂 錶哥熊生日快樂！";
+        subtitle.textContent = "今天是屬於錶哥熊的特別日子！";
+        day.textContent = "🎉 今天是錶哥熊生日快樂日！";
+      } else {
+        card.classList.remove("is-birthday");
+        title.textContent = "錶哥熊解凍倒數";
+        subtitle.textContent = "等待冰塊逐漸融化……";
+        const remaining = Math.ceil(
+          (birthday - now) / 86400000
+        );
+        day.textContent =
+          `距離錶哥熊生日還有 ${remaining} 天解凍完成！`;
+      }
+      percent.textContent =
+        "已解凍 " + percentage.toFixed(1) + "%";
+      bar.style.width = percentage + "%";
+      ice.style.clipPath =
+        `inset(${percentage}% 0 0 0)`;
+      birthdayDate.textContent = isBirthday
+        ? "11 月 14 日 · 錶哥熊生日"
+        : `下一次生日：${birthday.getFullYear()} 年 11 月 14 日`;
+    }
+    UpdateBirthday();
+  </script>
+</body>
 </html>
