@@ -7,33 +7,128 @@
   <title>錯誤|biaogeNet</title>
   <link rel="icon" href="https://biaogenet.qzz.io/images/favicon.png" type="image/png" />
   <link rel="stylesheet" href="https://biaogenet.qzz.io/styles/green.css">
+  <style>
+    #errimg {
+     filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.2));
+    }
+
+    body.bsod::before {
+      background: #0000FF;
+    }
+    
+    .content.bsod {
+      color: #FFFFFF
+    }
+    
+    .content.bsod button {
+      border-radius: 0px;
+      background: #BBB;
+      color: #0000FF;
+      box-shadow: 4px 4px 0 #000;
+    }
+    
+    .content.bsod button:active {
+      box-shadow: -4px -4px 0 #000;
+      transform: none;
+    }
+    
+    .container.bsod {
+      background: #BBB;
+      border: none;
+      border-radius: 0px;
+      width: 100%;
+      top: 0px;
+      left: 0px;
+      box-shadow: none;
+    }
+    
+    .container.bsod h3 {
+      color: #000;
+    }
+    
+    .menu-btn.bsod {
+      background: none;
+      color: #000;
+      border: none;
+      border-radius: 0px;
+      box-shadow: none;
+      transition: none;
+    }
+    
+    .menu-btn.bsod:active {
+      transform: none;
+    }
+    
+    .side-menu.bsod {
+      background: #BBB;
+      border: none;
+      border-radius: 0px;
+      top: 60px;
+      left: 0px;
+      height: 100vh;
+      max-height: 100vh;
+      box-shadow: none;
+      box-shadow: 4px 4px 0 #000;
+      transition: none;
+    }
+    
+    .side-menu.bsod.open {
+      transition: none;
+      transform: none;
+    }
+    
+    .side-menu.bsod a {
+      background: #999;
+      color: #000;
+      border: none;
+      border-radius: 0px;
+      box-shadow: 4px 4px 0 #000;
+      transition: none;
+    }
+    
+    @media (hover: hover) and (pointer: fine) {
+      .side-menu a:hover {
+        transform: none;
+        background: #999;
+      }
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-  <div class="menu-btn" onclick="OpenMenu()">☰</div>
+<div class="container" id="container">
+  <div class="menu-btn" onclick="OpenMenu()" id="menu-btn">☰</div>
   <img class="topimg" src="https://biaogenet.qzz.io/images/favicon.png" alt="錶哥網小圖示"/>
   <h3 class="title">錶哥網|biaogeNet</h3>
 </div>
 <div id="sideMenu" class="side-menu">
   <a href="https://biaogenet.qzz.io">錶哥網首頁</a>
-  <a href="https://biaogenet.qzz.io/imagedow.html">素材下載</a>
-  <a href="https://biaogenet.qzz.io/appstore.html">應用程式商店</a>
-  <a href="https://biaogenet.qzz.io/coin.html">投硬幣</a>
-  <a href="https://biaogenet.qzz.io/pp.html">隱私權政策</a>
+  <a href="https://biaogenet.qzz.io/tools/coin.html">投硬幣</a>
+  <a href="https://biaogenet.qzz.io/other/pp.html">隱私權政策</a>
  </div>
-<div class="content">
-  <img src="https://biaogenet.qzz.io/images/404new.png" class="bigimg" alt="錯誤圖片">
-  <h2>404</h2>
-  <p>啊！可憐的錶哥熊迷路了！</p>
-  <button onclick="BackHome()">回首頁</button>
+<div class="content" id="content">
+  <h2>《錶哥網•404》</h2>
+  <p>錶網尋路不見蹤，</p>
+   <p>熊影獨留舊夢中。</p>
+   <p>千頁萬站皆成空，</p>
+   <p>回首首頁已無蹤。</p>
+   <img src="https://biaogenet.qzz.io/images/404new.png" class="bigimg" alt="錯誤圖片" id="errimg" ondblclick="EasterEgg()">
+   <p></p>
+   <button onclick="BackHome()">回首頁</button>
 </div>
 </body>
       <script>
         function OpenMenu() {
-            document.getElementById("sideMenu").classList.toggle("open");
+          document.getElementById("sideMenu").classList.toggle("open");
         }
         function BackHome() {
-            window.location.href = "https://biaogenet.qzz.io";
+          window.location.href = "https://biaogenet.qzz.io";
+        }
+        function EasterEgg() {
+          document.body.classList.toggle("bsod");
+          document.getElementById("content").classList.toggle("bsod");
+          document.getElementById("container").classList.toggle("bsod");
+          document.getElementById("menu-btn").classList.toggle("bsod");
+          document.getElementById("sideMenu").classList.toggle("bsod");
         }
     </script>
     <script>
@@ -51,8 +146,8 @@ fetch("https://biaogenet.qzz.io/menu.json")
     }
   })
   .catch(err => {
-    sideMenu.innerHTML = "<a>選單載入失敗</a>";
-    console.error(err);
+    // 若選單 JSON 暫時無法載入，保留 HTML 內建選單。
+    console.error("選單載入失敗，使用內建選單：", err);
   });
     </script>
 </html>
