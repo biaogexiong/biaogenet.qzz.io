@@ -40,6 +40,129 @@
   background-size: cover;
   background-position: center;
 }
+
+.tab-switchCont {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.tabSwitch1 {
+  border-radius: 999px;
+  padding: 8px 13px;
+  background: rgba(34, 177, 76, 0.80);
+  color: #fff;
+  cursor:pointer;
+  width: 200px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.14),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.20);
+}
+
+.tabSwitch2 {
+  border-radius: 999px;
+  padding: 8px 13px;
+  background: #fff;
+  color: #000;
+  cursor: pointer;
+  width: 200px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.14),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.20);
+}
+
+.quick {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  width: min(100%, 620px);
+  margin: 20px auto;
+}
+
+.quick a {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 120px;
+  padding: 18px 10px;
+  color: #000;
+  text-decoration: none;
+  text-align: center;
+  font-size: 20px;
+  line-height: 1.5;
+  background: rgba(192, 224, 184, 0.80);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 20px;
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.14),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.20);
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.quick a::first-line {
+  font-size: 28px;
+}
+
+@media (max-width: 600px) {
+  .quick {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    width: min(100%, 620px);
+    margin: 16px auto;
+  }
+
+  .quick a {
+    min-height: 105px;
+    padding: 14px 8px;
+    gap: 7px;
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  .quick a::first-line {
+    font-size: 23px;
+  }
+}
+
+@media (max-width: 360px) {
+  .quick {
+    gap: 8px;
+  }
+
+  .quick a {
+    min-height: 92px;
+    padding: 12px 5px;
+    font-size: 14px;
+  }
+
+  .quick a::first-line {
+    font-size: 21px;
+  }
+}
+
+.quick a:active {
+  background: rgba(172, 204, 164, 0.95);
+  transform: scale(0.93);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .quick a:hover {
+    background: rgba(182, 214, 174, 0.95);
+    transform: scale(1.03);
+  }
+}
   </style>
 </head>
 <body>
@@ -53,9 +176,20 @@
   <a href="https://biaogenet.qzz.io/tools/coin.html">投硬幣</a>
   <a href="https://biaogenet.qzz.io/other/pp.html">隱私權政策</a>
 </div>
-  <div class="content">
-    <h1>關於錶哥網與錶哥熊</h1>
-    <h2>關於錶哥網</h2>
+  <div class="content" id="tabAboutnet">
+    <div class="tab-switchCont">
+      <a class="tabSwitch1">🌐<br>關於錶哥網</a>
+      <a class="tabSwitch2" onclick="tabToAboutme()"><br>關於錶哥熊</a>
+    </div>
+      <h1>關於錶哥網</h1>
+      <h2>錶哥網的參與開發者</h2>
+      <p>錶哥熊(Biaoge Bear)</p>
+      <p>Chat GPT (AI)</p>
+      <h2>其他了解型入口</h2>
+      <div class="quick">
+        <a href="https://biaogenet.qzz.io/pp.html">🔒<br>隱私權政策</a>
+        <a href="https://biaogenet.qzz.io/birthday.html">🎂<br>生日</a>
+      </div>
       <div class="crad">
         <img height="128" widht="128" src="https://biaogenet.qzz.io/images/favicon.png" alt="錶哥網圖示"/>
         <h3></h3>
@@ -66,45 +200,52 @@
         <p>於是，錶哥網就這麼誕生了。</p>
         <button id="readStoryBtn" type="button" onclick="toggleStoryReading()" aria-pressed="false">朗讀</button>
       </div>
-    <h2>關於錶哥熊</h2>
-    <p>小名：錶哥熊</p>
-    <p>性別：♂️男性</p>
-    <p ondblclick="OpenBirthday()">生日：11月14日</p>
-    <p>星座：♏天蠍座</p>
-    <div class="crad">
-      <h1>喜好</h1>
-      <p>🎞️做動畫</p>
-      <p>🖥️編程</p>
-      <p>☘️Minecraft 模組設計</p>
-      <p>🖼️畫畫</p>
-      <p>🎤唱歌</p>
     </div>
-     <h1></h1>
-    <div class="crad">
-      <h1>喜歡的食物</h1>
-      <p>🍉西瓜</p>
-      <p>🍪餅乾</p>
-      <p>🍬ACE軟糖</p>
-      <p>🥦花椰菜</p>
-      <p>🍇葡萄</p>
-      <p>✏️抹茶</p>
-      <p>🍵綠茶</p>
+    <div class="content" id="tabAboutme">
+    <div class="tab-switchCont">
+      <a class="tabSwitch2" onclick="tabToAboutnet()">🌐<br>關於錶哥網</a>
+      <a class="tabSwitch1"><br>關於錶哥熊</a>
     </div>
-     <h1></h1>
-    <div class="crad">
-      <h1>討厭的食物</h1>
-      <p>🍅番茄</p>
-      <p>🥒蔥</p>
-      <p>🍍榴槤</p>
-      <p>🥭芒果</p>
-      <p>💧開水</p>
-    </div>
-     <h2>社交平台</h2>
-     <button class="yt" aria-label="開啟 YouTube" onclick="OpenYoutube()"></button>
-     <button class="dc" aria-label="開啟 Discord" onclick="OpenDiscord()"></button>
-     <button class="tk" aria-label="開啟 TikTok" onclick="OpenTiktok()"></button>
-     <h1></h1>
-</body>
+    <h1>關於錶哥熊</h1>
+      <p>小名：錶哥熊</p>
+      <p>性別：♂️男性</p>
+      <p ondblclick="OpenBirthday()">生日：11月14日</p>
+      <p>星座：♏天蠍座</p>
+      <div class="crad">
+        <h1>喜好</h1>
+        <p>🎞️做動畫</p>
+        <p>🖥️編程</p>
+        <p>☘️Minecraft 模組設計</p>
+        <p>🖼️畫畫</p>
+        <p>🎤唱歌</p>
+      </div>
+       <h1></h1>
+      <div class="crad">
+        <h1>喜歡的食物</h1>
+        <p>🍉西瓜</p>
+        <p>🍪餅乾</p>
+        <p>🍬ACE軟糖</p>
+        <p>🥦花椰菜</p>
+        <p>🍇葡萄</p>
+        <p>✏️抹茶</p>
+        <p>🍵綠茶</p>
+      </div>
+       <h1></h1>
+      <div class="crad">
+        <h1>討厭的食物</h1>
+        <p>🍅番茄</p>
+        <p>🥒蔥</p>
+        <p>🍍榴槤</p>
+        <p>🥭芒果</p>
+        <p>💧開水</p>
+      </div>
+       <h2>社交平台</h2>
+       <button class="yt" aria-label="開啟 YouTube" onclick="OpenYoutube()"></button>
+       <button class="dc" aria-label="開啟 Discord" onclick="OpenDiscord()"></button>
+       <button class="tk" aria-label="開啟 TikTok" onclick="OpenTiktok()"></button>
+       <h1></h1>
+     </div>
+  </body>
       <script>
         let storyIsSpeaking = false;
 
@@ -155,19 +296,39 @@
         }
 
         function OpenYoutube() {
-            window.open("https://youtube.com/@biaogeYT", "_blank");
+          window.open("https://youtube.com/@biaogeYT", "_blank");
         }
+        
         function OpenDiscord() {
-            window.open("https://discord.gg/ppVer9cqCe", "_blank");
+          window.open("https://discord.gg/ppVer9cqCe", "_blank");
         }
+        
         function OpenTiktok() {
-            window.open("https://www.tiktok.com/@biaogetk", "_blank");
+          window.open("https://www.tiktok.com/@biaogetk", "_blank");
         }
-        function OpenBirthday() {
-            window.open("https://biaogenet.qzz.io/birthday.html", "_blank");
-        }
+        
         function OpenMenu() {
-            document.getElementById("sideMenu").classList.toggle("open");
+          document.getElementById("sideMenu").classList.toggle("open");
+        }
+
+        function OpenBirthday() {
+          window.open("https://biaogenet.qzz.io/birthday.html", "_blank");
+        }
+        
+        function loadTab() {
+          tabToAboutnet();
+        }
+        
+        loadTab();
+        
+        function tabToAboutnet() {
+          document.querySelector("#tabAboutme").style.display = "none";
+          document.querySelector("#tabAboutnet").style.display = "block";
+        }
+    
+        function tabToAboutme() {
+          document.querySelector("#tabAboutnet").style.display = "none";
+          document.querySelector("#tabAboutme").style.display = "block";
         }
     </script>
   <script>
@@ -189,5 +350,4 @@ fetch("https://biaogenet.qzz.io/menu.json")
     console.error("選單載入失敗，使用內建選單：", err);
   });
   </script>
-  </html>
-  
+</html>
