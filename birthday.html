@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="錶哥熊生日解凍倒數">
-  <meta name="theme-color" content="#22b14c">
   <title>生日|biaogeNet</title>
   <link rel="icon" href="https://biaogenet.qzz.io/images/favicon.png" type="image/png">
   <link rel="stylesheet" href="https://biaogenet.qzz.io/styles/green.css">
@@ -72,10 +71,6 @@
     .birthday-card.is-birthday {
       border-color: rgba(34,177,76,.5);
       box-shadow: 0 8px 35px rgba(34,177,76,.18);
-    }
-    .birthday-card.is-birthday .day {
-      color: #22b14c;
-      font-size: 22px;
     }
     @media (max-width: 480px) {
       .birthday-card {
@@ -181,12 +176,10 @@
           ), 1);
       const percentage = progress * 100;
       if (isBirthday) {
-        card.classList.add("is-birthday");
         title.textContent = "🎂 錶哥熊生日快樂！";
         subtitle.textContent = "今天是屬於錶哥熊的特別日子！";
         day.textContent = "🎉 今天是錶哥熊生日快樂日！";
       } else {
-        card.classList.remove("is-birthday");
         title.textContent = "錶哥熊解凍倒數";
         subtitle.textContent = "等待冰塊逐漸融化……";
         const remaining = Math.ceil(
