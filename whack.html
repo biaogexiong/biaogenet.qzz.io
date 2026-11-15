@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="抓準時機，點擊冒出來的錶哥熊！">
+  <title>打地熊|biaogeNet</title>
+  <link rel="icon" href="https://biaogenet.qzz.io/images/favicon.png" type="image/png" />
+  <link rel="stylesheet" href="https://biaogenet.qzz.io/styles/green.css">
+  <style>
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 9px;
+      width: min(100%, 620px);
+      margin: 20px auto;
+    }
+    
+    .stat {
+      padding: 12px 6px; text-align: center;
+      border-radius: 17px;
+      background: rgba(192, 224, 184, 0.80);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.14),
+        inset 1px 1px 2px rgba(255, 255, 255, 0.20);
+    }
+    
+    .stat span {
+      display: block;
+      color: rgba(0, 0, 0, 0.67);
+      font-size: 11px;
+    }
+    
+    .stat strong {
+      display: block;
+      margin-top: 3px;
+      color: #22b14c;
+      font-size: 25px;
+    }
+    
+    .board {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:clamp(10px,3vw,17px);
+      width:min(100%,500px);
+      margin:0 auto 18px;
+      padding:clamp(10px,3vw,17px);
+      box-shadow:inset 0 1px 5px rgba(255,255,255,.28);
+    }
+    
+    .hole {
+      position: relative; aspect-ratio: 1 / .88; min-width: 0; overflow: hidden;
+      border: 0; border-radius: 50% 50% 42% 42%;
+      background: #005000;
+      cursor: pointer; touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+    }
+    
+    .hole:active {
+      transform: none;
+    }
+    
+    .bear {
+      position:relative;
+      z-index:1;
+      display:block;
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      object-position:center bottom;
+      margin-bottom:-82%;
+      opacity:0;
+      transform:translateY(12px) scale(.82);
+      transition:margin-bottom .16s ease,opacity .12s ease,transform .16s ease;
+      pointer-events:none;
+      -webkit-user-drag:none;
+      filter:drop-shadow(0 3px 2px rgba(0,0,0,.18));
+    }
+    
+    .hole.up .bear {
+      margin-bottom:64%;
+      opacity:1;
+      transform:translateY(0) scale(1);
+    }
+    
+    .hole.hit .bear {
+      transform: scale(0.95);
+      filter: sepia(1) saturate(10) hue-rotate(300deg);
+    }
+
+    .difficulty-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.48);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+    }
+
+    .difficulty-overlay.open {
+      display: flex;
+    }
+    
+    .difficulty-overlay.open .difficulty-dialog {
+      animation: difficultyPop 0.5s cubic-bezier(0.95, 1.05, 0.95, 1) both;
+    }
+    
+    @keyframes difficultyPop {
+      0% {
+        transform: scale(0.95);
+      }
+    
+      60% {
+        transform: scale(1.05);
+      }
+    
+      80% {
+        transform: scale(0.95);
+      }
+    
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .difficulty-dialog {
+      width: min(100%, 360px);
+      padding: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 22px;
+      background: linear-gradient(#f2fff2, #eaeae2);
+      color: #000;
+      text-align: center;
+      opacity:0.90;
+    }
+
+    .difficulty-dialog h2 {
+      margin: 0 0 8px;
+    }
+
+    .difficulty-dialog p {
+      margin: 0 0 20px;
+    }
+
+    .difficulty-options {
+      display: grid;
+      gap: 10px;
+    }
+
+    .difficulty-options button,
+    .difficulty-cancel {
+      width: 100%;
+      min-height: 44px;
+      cursor: pointer;
+    }
+
+    .difficulty-cancel {
+      margin-top: 12px;
+    }
+    
+    #easy {
+      background: rgba(64, 177, 56, 0.80);
+    }
+    
+    #normal {
+      background: rgba(194, 177, 26, 0.80);
+    }
+    
+    #hard {
+      background: rgba(174, 47, 6, 0.80);
+    }
+  </style>
+</head>
+<body>
+<div class="container" id="container">
+  <div class="menu-btn" onclick="OpenMenu()" id="menu-btn">☰</div>
+  <img class="topimg" src="https://biaogenet.qzz.io/images/favicon.png" alt="錶哥網小圖示"/>
+  <h3 class="title">錶哥網|biaogeNet</h3>
+</div>
+<div id="sideMenu" class="side-menu">
+  <a href="https://biaogenet.qzz.io">錶哥網首頁</a>
+  <a href="https://biaogenet.qzz.io/tools/coin.html">投硬幣</a>
+  <a href="https://biaogenet.qzz.io/other/pp.html">隱私權政策</a>
+ </div>
+<div class="content" id="content">
+  <h1>打地熊</h1>
+  <p>抓準時機，點擊冒出來的錶哥熊！</p>
+  <section class="stats">
+    <div class="stat"><span>目前分數</span><strong id="score">0</strong></div>
+    <div class="stat"><span>剩餘時間</span><strong id="time">?</strong></div>
+    <div class="stat"><span>最高紀錄</span><strong id="best">0</strong></div>
+  </section>
+  <section class="board" id="board">
+      <button class="hole"><img class="bear" src="https://biaogenet.qzz.io/images/favicon.png" alt=""></button>
+      <button class="hole"><img class="bear" src="https://biaogenet.qzz.io/images/favicon.png" alt=""></button>
+      <button class="hole"><img class="bear" src="https://biaogenet.qzz.io/images/favicon.png" alt=""></button>
+      <button class="hole"><img class="bear" src="https://biaogenet.qzz.io/images/favicon.png" alt=""></button>
+      <button class="hole"><img class="bear" src="https://biaogenet.qzz.io/images/favicon.png" alt=""></button>
+      <button class="hole"><img class="bear" src="https://biaogenet.qzz.io/images/favicon.png" alt=""></button>
+      <button class="hole"><img class="bear" src="https://biaogenet.qzz.io/images/favicon.png" alt=""></button>
+      <button class="hole"><img class="bear" src="https://biaogenet.qzz.io/images/favicon.png" alt=""></button>
+      <button class="hole"><img class="bear" src="https://biaogenet.qzz.io/images/favicon.png" alt=""></button>
+    </section>
+  <button id="startBtn">開始遊戲</button>
+  <button id="resetBtn">重新開始</button>
+  <p id="message">按下「開始遊戲」即可挑戰！</p>
+  <p>每點中一隻錶哥熊即可獲得 1 分 · 祝你玩得開心</p>
+</div>
+
+<div class="difficulty-overlay" id="difficultyOverlay">
+  <div class="difficulty-dialog" role="dialog" aria-modal="true" aria-labelledby="difficultyTitle">
+    <h2 id="difficultyTitle">選擇遊戲難度</h2>
+    <p>請選擇錶哥熊出現的挑戰時間</p>
+    <div class="difficulty-options">
+      <button type="button" data-difficulty="1" id="easy">簡單・30 秒</button>
+      <button type="button" data-difficulty="2" id="normal">普通・25 秒</button>
+      <button type="button" data-difficulty="3" id="hard">困難・20 秒</button>
+    </div>
+    <button type="button" class="difficulty-cancel" id="difficultyCancel">取消</button>
+  </div>
+</div>
+</body>
+      <script>
+        function OpenMenu() {
+          document.getElementById("sideMenu").classList.toggle("open");
+        }
+        function BackHome() {
+          window.location.href = "https://biaogenet.qzz.io";
+        }
+    </script>
+    <script>
+    const sideMenu = document.getElementById("sideMenu");
+
+    fetch("https://biaogenet.qzz.io/menu.json")
+      .then(r => r.json())
+      .then(menu => {
+        sideMenu.innerHTML = "";
+        for (const [name, url] of Object.entries(menu)) {
+          const a = document.createElement("a");
+          a.href = url;
+          a.textContent = name;
+          sideMenu.appendChild(a);
+        }
+      })
+      .catch(err => {
+        // 若選單 JSON 暫時無法載入，保留 HTML 內建選單。
+        console.error("選單載入失敗，使用內建選單：", err);
+      });
+    </script>
+    <script>
+    (() => {
+      const holes = [...document.querySelectorAll('.hole')];
+      const scoreEl = document.getElementById('score');
+      const timeEl = document.getElementById('time');
+      const bestEl = document.getElementById('best');
+      const messageEl = document.getElementById('message');
+      const startBtn = document.getElementById('startBtn');
+      const resetBtn = document.getElementById('resetBtn');
+      const difficultyOverlay = document.getElementById('difficultyOverlay');
+      const difficultyCancel = document.getElementById('difficultyCancel');
+      const difficultyButtons = [...difficultyOverlay.querySelectorAll('[data-difficulty]')];
+      
+      const hitSays = [
+        "夭壽！被打中了！啊啊啊！",
+        "熊！！！",
+        "啊！打熊囉！",
+        "@#&$#",
+        "別打了！",
+        "我的熊命啊！",
+        "啊！我不要變成熊肉！"
+      ];
+      
+      let score = 0;
+      let timeLeft = "?";
+      let best = Number(localStorage.getItem('biaogeWhackBest') || 0);
+      let activeHole = -1;
+      let playing = false;
+      let countdown = null;
+      let popTimer = null;
+      let roundToken = 0;
+      let currentDifficulty = null;
+    
+      const difficultySettings = {
+        "1": {
+          time: 30,
+          duration: 1050,
+          gap: 400,
+          minDuration: 650
+        },
+        "2": {
+          time: 25,
+          duration: 760,
+          gap: 230,
+          minDuration: 480
+        },
+        "3": {
+          time: 20,
+          duration: 550,
+          gap: 90,
+          minDuration: 400
+        }
+      };
+    
+      bestEl.textContent = best;
+    
+      function clearTimers() {
+        clearInterval(countdown);
+        clearTimeout(popTimer);
+        countdown = null;
+        popTimer = null;
+      }
+    
+      function hideAll() {
+        holes.forEach(hole => hole.classList.remove('up', 'hit'));
+        activeHole = -1;
+      }
+    
+      function updateScore() {
+        scoreEl.textContent = score;
+    
+        if (score > best) {
+          best = score;
+          bestEl.textContent = best;
+    
+          try {
+            localStorage.setItem('biaogeWhackBest', String(best));
+          } catch (_) {}
+        }
+      }
+    
+      function showBear(token) {
+        if (!playing || token !== roundToken) return;
+    
+        hideAll();
+    
+        const next = Math.floor(Math.random() * holes.length);
+        activeHole = next;
+        holes[next].classList.add('up');
+    
+        const settings = difficultySettings[currentDifficulty];
+    
+        // 分數越高，熊出現的時間也會逐漸縮短
+        const duration = Math.max(
+          settings.minDuration,
+          settings.duration - Math.floor(score / 4) * 45
+        );
+    
+        popTimer = setTimeout(() => {
+          if (token !== roundToken || !playing) return;
+    
+          hideAll();
+    
+          popTimer = setTimeout(() => {
+            showBear(token);
+          }, settings.gap);
+        }, duration);
+      }
+    
+      function endGame() {
+        playing = false;
+        clearTimers();
+        hideAll();
+    
+        startBtn.disabled = false;
+        startBtn.textContent = '再玩一次';
+        messageEl.textContent = `熊~時間到！你獲得 ${score} 分，最高紀錄 ${best} 分。`;
+      }
+    
+      function startGame() {
+        difficultyOverlay.classList.add('open');
+      }
+    
+      function beginGame(result) {
+        clearTimers();
+        roundToken++;
+    
+        currentDifficulty = result;
+        score = 0;
+        timeLeft = difficultySettings[result].time;
+        playing = true;
+    
+        updateScore();
+        timeEl.textContent = timeLeft;
+    
+        startBtn.disabled = true;
+        startBtn.textContent = '遊戲進行中';
+        messageEl.textContent = '錶哥熊出現了！快點擊！';
+    
+        const token = roundToken;
+        showBear(token);
+    
+        countdown = setInterval(() => {
+          if (!playing || token !== roundToken) return;
+    
+          timeLeft--;
+          timeEl.textContent = timeLeft;
+    
+          if (timeLeft <= 0) endGame();
+        }, 1000);
+      }
+    
+      function resetGame() {
+        roundToken++;
+        clearTimers();
+    
+        playing = false;
+        score = 0;
+        timeLeft = "?";
+        currentDifficulty = null;
+    
+        updateScore();
+        timeEl.textContent = timeLeft;
+        hideAll();
+    
+        startBtn.disabled = false;
+        startBtn.textContent = '開始遊戲';
+        messageEl.textContent = '已重新準備好，按下「開始遊戲」吧！';
+      }
+    
+      holes.forEach((hole, index) => {
+        hole.addEventListener('click', () => {
+          if (!playing || index !== activeHole || hole.classList.contains('hit')) return;
+    
+          clearTimeout(popTimer);
+          hole.classList.add('hit');
+    
+          score++;
+          updateScore();
+    
+          messageEl.textContent = hitSays[Math.floor(Math.random() * hitSays.length)];
+          activeHole = -1;
+    
+          const token = roundToken;
+          const gap = difficultySettings[currentDifficulty].gap;
+    
+          popTimer = setTimeout(() => {
+            if (!playing || token !== roundToken) return;
+    
+            hideAll();
+            showBear(token);
+          }, gap);
+        });
+      });
+    
+      difficultyButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const difficulty = button.dataset.difficulty;
+    
+          difficultyOverlay.classList.remove('open');
+          beginGame(difficulty);
+        });
+      });
+    
+      difficultyCancel.addEventListener('click', () => {
+        difficultyOverlay.classList.remove('open');
+      });
+    
+      difficultyOverlay.addEventListener('click', event => {
+        if (event.target === difficultyOverlay) {
+          difficultyOverlay.classList.remove('open');
+        }
+      });
+    
+      startBtn.addEventListener('click', startGame);
+      resetBtn.addEventListener('click', resetGame);
+    })();
+    
+    </script>
+</html>
