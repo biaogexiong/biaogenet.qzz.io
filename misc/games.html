@@ -120,6 +120,7 @@
     <button class="tabSwitch" type="button" data-type="casual">休閒</button>
     <button class="tabSwitch" type="button" data-type="text">文字</button>
     <button class="tabSwitch" type="button" data-type="action">動作</button>
+    <button class="tabSwitch" type="button" data-type="master-like">站長推薦</button>
   </div>
 
   <input
@@ -205,7 +206,8 @@
           "益智": "puzzle",
           "休閒": "casual",
           "文字": "text",
-          "動作": "action"
+          "動作": "action",
+          "站長推薦": "master-like"
         };
         return aliases[type] || type.toLowerCase();
       }
@@ -220,8 +222,16 @@
             .toLocaleLowerCase();
 
           const matchesName = plainName.includes(keyword);
+
+          // type 支援以空白分隔的多個標籤，例如：
+          // "action master-like"
+          const gameTypes = game.type
+            .split(/\s+/)
+            .filter(Boolean)
+            .map(NormalizeType);
+
           const matchesType = activeType === "all" ||
-            NormalizeType(game.type) === activeType;
+            gameTypes.includes(activeType);
 
           return matchesName && matchesType;
         });
