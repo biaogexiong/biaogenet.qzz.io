@@ -1,3 +1,7 @@
-{
-  "🔨<br>打地熊": "https://biaogenet.qzz.io/misc/games/whack.html"
-}
+[
+  {
+    "name": "🔨<br>打地熊",
+    "url": "https://biaogenet.qzz.io/misc/games/whack.html",
+    "type": "action"
+  }
+]
