@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="錶哥網堪比工具箱，多個工具，等你來開啟！">
+  <title>工具|biaogeNet</title>
+  <link rel="icon" href="https://biaogenet.qzz.io/images/favicon.png" type="image/png" />
+  <link rel="stylesheet" href="https://biaogenet.qzz.io/styles/green.css">
+  <style>
+    .tool-categories {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .tabSwitch {
+      border-radius: 999px;
+      padding: 8px 13px;
+      background: #fff;
+      color: #000;
+      cursor: pointer;
+      width: auto;
+      min-width: 92px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.14),
+        inset 1px 1px 2px rgba(255, 255, 255, 0.20);
+    }
+    
+    .tabSwitch.selected {
+      background: rgba(34, 177, 76, 0.80);
+      color: #fff;
+    }
+
+    .tool-search {
+      width: min(100%, 520px);
+      box-sizing: border-box;
+      display: block;
+      margin: 18px auto;
+      padding: 13px 18px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      outline: none;
+      background: rgba(255, 255, 255, 0.72);
+      color: #222;
+      font: inherit;
+      box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08),
+        inset 1px 1px 3px rgba(255, 255, 255, 0.7);
+    }
+
+    .tool-search:focus {
+      border-color: #22b14c;
+    }
+
+    #toolList {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+      gap: 14px;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .tool-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 120px;
+      padding: 18px 10px;
+      color: #000;
+      text-decoration: none;
+      text-align: center;
+      font-size: 20px;
+      line-height: 1.5;
+      background: rgba(192, 224, 184, 0.80);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 20px;
+      box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.14),
+        inset 1px 1px 2px rgba(255, 255, 255, 0.20);
+      transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+    }
+    
+    .tool-empty, .tool-status {
+      grid-column: 1 / -1;
+      text-align: center;
+      opacity: .75;
+      padding: 18px;
+    }
+
+    @media (max-width: 480px) {
+      #toolList { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+  </style>
+</head>
+<body>
+<div class="container" id="container">
+  <div class="menu-btn" onclick="OpenMenu()" id="menu-btn">☰</div>
+  <img class="topimg" src="https://biaogenet.qzz.io/images/favicon.png" alt="錶哥網小圖示"/>
+  <h3 class="title">錶哥網|biaogeNet</h3>
+</div>
+<div id="sideMenu" class="side-menu">
+  <a href="https://biaogenet.qzz.io">錶哥網首頁</a>
+  <a href="https://biaogenet.qzz.io/tools/coin.html">投硬幣</a>
+  <a href="https://biaogenet.qzz.io/other/pp.html">隱私權政策</a>
+ </div>
+<div class="content" id="content">
+  <h1>工具箱</h1>
+  <div id="toolCategories" class="tool-categories">
+    <button class="tabSwitch selected" type="button" data-type="all">全部</button>
+    <button class="tabSwitch" type="button" data-type="daily">日常</button>
+    <button class="tabSwitch" type="button" data-type="study">學習</button>
+    <button class="tabSwitch" type="button" data-type="master-like">站長推薦</button>
+  </div>
+
+  <input
+    id="toolSearch"
+    class="tool-search"
+    type="search"
+    placeholder="搜尋工具名稱..."
+    aria-label="搜尋工具"
+    autocomplete="off"
+  />
+
+  <div id="toolList" aria-live="polite">
+    <div class="tool-status">正在載入工具資訊...</div>
+  </div>
+</div>
+</body>
+    <script>
+      function OpenMenu() {
+        document.getElementById("sideMenu").classList.toggle("open");
+      }
+      function BackHome() {
+        window.location.href = "https://biaogenet.qzz.io";
+      }
+    </script>
+    <script>
+    const sideMenu = document.getElementById("sideMenu");
+    
+    fetch("https://biaogenet.qzz.io/menu.json")
+      .then(r => r.json())
+      .then(menu => {
+        sideMenu.innerHTML = "";
+        for (const [name, url] of Object.entries(menu)) {
+          const a = document.createElement("a");
+          a.href = url;
+          a.textContent = name;
+          sideMenu.appendChild(a);
+        }
+      })
+      .catch(err => {
+        // 若選單 JSON 暫時無法載入，保留 HTML 內建選單。
+        console.error("選單載入失敗，使用內建選單：", err);
+      });
+    </script>
+    <script>
+      const toolListUrl = "https://biaogenet.qzz.io/misc/toollist.json";
+      const toolList = document.getElementById("toolList");
+      const toolSearch = document.getElementById("toolSearch");
+      const categoryButtons = document.querySelectorAll("#toolCategories .tabSwitch");
+
+      let tools = [];
+      let activeType = "all";
+
+      // toollist.json 使用陣列，每筆工具包含 name、url、type。
+      async function Loadtools() {
+        toolList.innerHTML = '<div class="tool-status">熊~正在載入工具資訊...</div>';
+
+        try {
+          const response = await fetch(toolListUrl, { cache: "no-cache" });
+          if (!response.ok) throw new Error("HTTP " + response.status);
+
+          const data = await response.json();
+          if (!Array.isArray(data)) {
+            throw new Error("熊~工具清單格式錯誤：最外層必須是陣列");
+          }
+
+          tools = data.filter(tool =>
+            tool &&
+            typeof tool.name === "string" &&
+            typeof tool.url === "string" &&
+            typeof tool.type === "string"
+          );
+
+          Rendertools();
+        } catch (error) {
+          console.error("熊~工具資訊載入失敗：", error);
+          toolList.innerHTML = '<div class="tool-empty">熊~工具資訊載入失敗，請稍後再試。</div>';
+        }
+      }
+
+      // 支援中文類別名稱及英文 type 值。
+      function NormalizeType(type) {
+        const aliases = {
+          "日常": "daily",
+          "學習": "study",
+          "站長推薦": "master-like"
+        };
+        return aliases[type] || type.toLowerCase();
+      }
+
+      function Rendertools() {
+        const keyword = toolSearch.value.trim().toLocaleLowerCase();
+
+        const filtered = tools.filter(tool => {
+          const plainName = tool.name
+            .replace(/<br\s*\/?\s*>/gi, " ")
+            .replace(/<[^>]*>/g, "")
+            .toLocaleLowerCase();
+
+          const matchesName = plainName.includes(keyword);
+
+          const toolTypes = tool.type
+            .split(/\s+/)
+            .filter(Boolean)
+            .map(NormalizeType);
+
+          const matchesType = activeType === "all" ||
+            toolTypes.includes(activeType);
+
+          return matchesName && matchesType;
+        });
+
+        toolList.innerHTML = "";
+
+        if (filtered.length === 0) {
+          toolList.innerHTML = '<div class="tool-empty">熊~找不到符合的工具。</div>';
+          return;
+        }
+
+        filtered.forEach(tool => {
+          const link = document.createElement("a");
+          link.className = "tool-card";
+          link.href = tool.url;
+          link.innerHTML = tool.name;
+          toolList.appendChild(link);
+        });
+      }
+
+      categoryButtons.forEach(button => {
+        button.addEventListener("click", () => {
+          activeType = button.dataset.type;
+          categoryButtons.forEach(item =>
+            item.classList.toggle("selected", item === button)
+          );
+          Rendertools();
+        });
+      });
+
+      toolSearch.addEventListener("input", Rendertools);
+      Loadtools();
+    </script>
+</html>
