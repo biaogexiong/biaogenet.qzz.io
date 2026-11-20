@@ -8,201 +8,201 @@
   <link rel="icon" href="https://biaogenet.qzz.io/images/favicon.png" type="image/png" />
   <link rel="stylesheet" href="https://biaogenet.qzz.io/styles/green.css">
   <style>
-.bigtxt {
-  font-size: 60px;
-}
-
-.tips {
-  color: #676700;
-  animation: tipsPulse 2s ease-in-out infinite;
-}
-
-@keyframes tipsPulse {
-  0%, 100% {
-    color: #676700;
-    transform: scale(1);
-  }
-  50% {
-    color: #878700;
-    transform: scale(0.98);
-  }
-}
-
-.minicard {
-  position: relative;
-  width: 380px;
-  height: 380px;
-  box-sizing: border-box;
-  margin: 8px;
-  padding: 20px;
-  display: inline-flex;
-  vertical-align: top;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  color: #000;
-  text-align: center;
-  background: rgba(192, 224, 184, 0.80);
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  border-radius: 20px;
-  box-shadow:
-    0 8px 24px rgba(0, 0, 0, 0.14),
-    inset 1px 1px 2px rgba(255, 255, 255, 0.20);
-
-  overflow: hidden;
-}
-
-
-.quick {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-  width: min(100%, 620px);
-  margin: 20px auto;
-}
-
-.quick a {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  min-height: 120px;
-  padding: 18px 10px;
-  color: #000;
-  text-decoration: none;
-  text-align: center;
-  font-size: 20px;
-  line-height: 1.5;
-  background: rgba(192, 224, 184, 0.80);
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  border-radius: 20px;
-  box-shadow:
-    0 8px 24px rgba(0, 0, 0, 0.14),
-    inset 1px 1px 2px rgba(255, 255, 255, 0.20);
-  transition:
-    background-color 0.2s ease,
-    border-color 0.2s ease,
-    box-shadow 0.2s ease,
-    transform 0.2s ease;
-}
-
-.quick a::first-line {
-  font-size: 28px;
-}
-
-@media (max-width: 600px) {
-  .quick {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
-    width: min(100%, 620px);
-    margin: 16px auto;
-  }
-
-  .quick a {
-    min-height: 105px;
-    padding: 14px 8px;
-    gap: 7px;
-    font-size: 16px;
-    line-height: 1.4;
-  }
-
-  .quick a::first-line {
-    font-size: 23px;
-  }
-}
-
-@media (max-width: 360px) {
-  .quick {
-    gap: 8px;
-  }
-
-  .quick a {
-    min-height: 92px;
-    padding: 12px 5px;
-    font-size: 14px;
-  }
-
-  .quick a::first-line {
-    font-size: 21px;
-  }
-}
-
-.quick a:active {
-  background: rgba(172, 204, 164, 0.95);
-  transform: scale(0.93);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .quick a:hover {
-    background: rgba(182, 214, 174, 0.95);
-    transform: scale(1.03);
-  }
-}
-
-.easterContent {
-  margin-top: 96px;
-  text-align: center;
-}
-
-.container.drop {
-   position: fixed;
-   z-index: 20;
-   animation: containerDrop 0.75s cubic-bezier(.34, 1.56, .64, 1) forwards;
-}
-
-@keyframes containerDrop {
-    0% { transform: translateY(0); }
-    72% { transform: translateY(calc(100vh - 100% - 12px)); }
-    86% { transform: translateY(calc(100vh - 100% - 24px)); }
-    100% { transform: translateY(calc(100vh - 100% - 12px)); }
-}
-
-.side-menu.drop {
-   position: fixed;
-   z-index: 19;
-   animation: SideMenuDrop 0.75s cubic-bezier(.34, 1.56, .64, 1) forwards;
-}
-
-@keyframes SideMenuDrop {
-    0% { transform: translateY(0); }
-    72% { transform: translateY(calc(100vh - 100% - 12px)); }
-    86% { transform: translateY(calc(100vh - 100% - 24px)); }
-    100% { transform: translateY(calc(100vh - 100% - 12px)); }
-}
-
-.date-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.date-row #homeDate {
-  margin: 0;
-}
-
-.activity {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 30px;
-  width: 30px;
-  min-width: 30px;
-  height: 30px;
-  box-sizing: border-box;
-  color: #fff;
-  background: #777;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  font-size: 15px;
-  font-weight: 700;
-  line-height: 1;
-  user-select: none;
-  transition: background-color 0.2s ease, transform 0.2s ease;
-}
+    .bigtxt {
+      font-size: 60px;
+    }
+    
+    .tips {
+      color: #676700;
+      animation: tipsPulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes tipsPulse {
+      0%, 100% {
+        color: #676700;
+        transform: scale(1);
+      }
+      50% {
+        color: #878700;
+        transform: scale(0.98);
+      }
+    }
+    
+    .minicard {
+      position: relative;
+      width: 380px;
+      height: 380px;
+      box-sizing: border-box;
+      margin: 8px;
+      padding: 20px;
+      display: inline-flex;
+      vertical-align: top;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: #000;
+      text-align: center;
+      background: rgba(192, 224, 184, 0.80);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 20px;
+      box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.14),
+        inset 1px 1px 2px rgba(255, 255, 255, 0.20);
+    
+      overflow: hidden;
+    }
+    
+    
+    .quick {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      width: min(100%, 620px);
+      margin: 20px auto;
+    }
+    
+    .quick a {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 120px;
+      padding: 18px 10px;
+      color: #000;
+      text-decoration: none;
+      text-align: center;
+      font-size: 20px;
+      line-height: 1.5;
+      background: rgba(192, 224, 184, 0.80);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 20px;
+      box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.14),
+        inset 1px 1px 2px rgba(255, 255, 255, 0.20);
+      transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+    }
+    
+    .quick a::first-line {
+      font-size: 28px;
+    }
+    
+    @media (max-width: 600px) {
+      .quick {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        width: min(100%, 620px);
+        margin: 16px auto;
+      }
+    
+      .quick a {
+        min-height: 105px;
+        padding: 14px 8px;
+        gap: 7px;
+        font-size: 16px;
+        line-height: 1.4;
+      }
+    
+      .quick a::first-line {
+        font-size: 23px;
+      }
+    }
+    
+    @media (max-width: 360px) {
+      .quick {
+        gap: 8px;
+      }
+    
+      .quick a {
+        min-height: 92px;
+        padding: 12px 5px;
+        font-size: 14px;
+      }
+    
+      .quick a::first-line {
+        font-size: 21px;
+      }
+    }
+    
+    .quick a:active {
+      background: rgba(172, 204, 164, 0.95);
+      transform: scale(0.93);
+    }
+    
+    @media (hover: hover) and (pointer: fine) {
+      .quick a:hover {
+        background: rgba(182, 214, 174, 0.95);
+        transform: scale(1.03);
+      }
+    }
+    
+    .easterContent {
+      margin-top: 96px;
+      text-align: center;
+    }
+    
+    .container.drop {
+       position: fixed;
+       z-index: 20;
+       animation: containerDrop 0.75s cubic-bezier(.34, 1.56, .64, 1) forwards;
+    }
+    
+    @keyframes containerDrop {
+        0% { transform: translateY(0); }
+        72% { transform: translateY(calc(100vh - 100% - 12px)); }
+        86% { transform: translateY(calc(100vh - 100% - 24px)); }
+        100% { transform: translateY(calc(100vh - 100% - 12px)); }
+    }
+    
+    .side-menu.drop {
+       position: fixed;
+       z-index: 19;
+       animation: SideMenuDrop 0.75s cubic-bezier(.34, 1.56, .64, 1) forwards;
+    }
+    
+    @keyframes SideMenuDrop {
+        0% { transform: translateY(0); }
+        72% { transform: translateY(calc(100vh - 100% - 12px)); }
+        86% { transform: translateY(calc(100vh - 100% - 24px)); }
+        100% { transform: translateY(calc(100vh - 100% - 12px)); }
+    }
+    
+    .date-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    
+    .date-row #homeDate {
+      margin: 0;
+    }
+    
+    .activity {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 30px;
+      width: 30px;
+      min-width: 30px;
+      height: 30px;
+      box-sizing: border-box;
+      color: #fff;
+      background: #777;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1;
+      user-select: none;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+    }
   </style>
 </head>
 <body>
@@ -236,12 +236,16 @@
     <p>「快捷入口」既方便又快速。</p>
     <div class="quick">
       <a href="https://biaogenet.qzz.io/about.html">ⓘ<br>關於</a>
-      <a href="https://biaogenet.qzz.io/tools/coin.html">🪙<br>投硬幣</a>
-      <a href="https://biaogenet.qzz.io/tools/scratcher.html">📝<br>刮刮樂</a>
+      <a href="https://biaogenet.qzz.io/misc/games.html">🎮<br>遊樂園</a>
+      <a href="https://biaogenet.qzz.io/misc/tools.html">🧰<br>工具箱</a>
     </div>
-    <h2>🏷️ 隨機熊名</h2>
-    <p id="RndNameResult">熊~熊名載入中……</p>
-    <button onclick="RndBearName()">換一個</button>
+    <h2>🏷️ 隨機小熊</h2>
+    <div class="crad">
+      <h2>你的專屬小熊</h2>
+      <p id="RndNameResult">熊~熊名載入中……</p>
+      <p id="RndBearGender">熊~性別載入中……</p>
+      <button onclick="RndBearName()">換一個</button>
+    </div>
     <h3></h3>
   </div>
   <div class="easterContent">
@@ -465,13 +469,32 @@
     
     function RndBearName() {
       const colors = ["紅", "橙", "黃", "綠", "藍", "紫", "粉", "白", "黑", "灰", "棕", "青", "金", "銀"];
-      const shapes = ["星", "心", "圓", "方", "扁", "長"];
-      const first = colors[Math.floor(Math.random() * colors.length)];
-      const secondWords = [...colors, ...shapes]
-        .filter(word => word !== first);
-      const second = secondWords[Math.floor(Math.random() * secondWords.length)];
-    
-      document.getElementById("RndNameResult").textContent = "你的專屬熊名：" + first + second + "熊";
+      const nature = ["星", "月", "雪", "雲", "風", "雨", "雷", "霧", "冰", "火", "海", "山", "花", "草", "樹", "葉", "虹"];
+      const foods = ["糖", "餅", "蛋", "奶", "茶", "蜜", "果", "莓", "蘋", "橘", "瓜", "蕉", "包", "饅", "湯", "糕"];
+      const shapes = ["圓", "方", "扁", "長", "胖", "小", "大"];
+      const personality = ["開心", "快樂", "無言", "懶", "呆", "笨", "聰明", "害羞", "淘氣", "安靜", "神秘", "奇怪", "可愛", "勇敢", "夢幻", "迷糊"];
+      const objects = ["鐘", "球", "帽", "包", "盒", "杯", "燈", "書", "筆", "機", "夢", "泡", "星"];
+      const gender = Math.random() < 0.5 ? "男" : "女";
+      const prefixes = gender === "男"
+          ? ["小", "大", "黑", "藍", "灰", "鋼", "雷", "火", "勇", "酷", "石", "山", "電", "金"]
+          : ["小", "粉", "花", "甜", "蜜", "櫻", "桃", "雪", "月", "星", "彩", "夢", "奶", "糖"];
+      const suffixes = [
+          ...nature,
+          ...foods,
+          ...objects,
+          ...shapes
+      ];
+      const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+      const suffix = suffixes[Math.floor(Math.random() * suffixes.length)];
+      const usePrefix = Math.random() < 0.5;
+      let name = usePrefix ? prefix + suffix : suffix;
+
+      if (name.length > 2) {
+        name = name.slice(0, 2);
+      }
+
+      document.getElementById("RndNameResult").textContent = "熊名：" + name + "熊";
+      document.getElementById("RndBearGender").textContent = "性別：" + gender;
     }
 
     RndBearName();
@@ -537,8 +560,7 @@
       const isAprilFool = now.getMonth() === 3 && now.getDate() === 1;
       if (isAprilFool === true) AprilFoolsBear();
     }
-    
-    
+        
     function AprilFoolsBear() {
       const selectors = "p, a, h1, h2, h3, button";
 
