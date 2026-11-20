@@ -62,6 +62,10 @@
       transform: none;
     }
     
+    .hole:hover {
+      transform: none;
+    }
+    
     .bear {
       position:relative;
       z-index:1;
@@ -88,6 +92,10 @@
     .hole.hit .bear {
       transform: scale(0.95);
       filter: sepia(1) saturate(10) hue-rotate(300deg);
+    }
+    
+    .hole.fake .bear {
+      filter: invert(1) !important;
     }
 
     .difficulty-overlay {
@@ -175,6 +183,10 @@
     #hard {
       background: rgba(174, 47, 6, 0.80);
     }
+    
+    #leisure {
+      background: rgba(177, 97, 246, 0.80);
+    }
   </style>
 </head>
 <body>
@@ -210,7 +222,7 @@
   <button id="startBtn">開始遊戲</button>
   <button id="resetBtn">重新開始</button>
   <p id="message">按下「開始遊戲」即可挑戰！</p>
-  <p>每點中一隻錶哥熊即可獲得 1 分 · 祝你玩得開心</p>
+  <p>每點中一隻錶哥熊即可獲得 1 分，<br>點到假的黑色錶哥熊則死亡。</p>
 </div>
 
 <div class="difficulty-overlay" id="difficultyOverlay">
@@ -221,6 +233,7 @@
       <button type="button" data-difficulty="1" id="easy">簡單・30 秒</button>
       <button type="button" data-difficulty="2" id="normal">普通・25 秒</button>
       <button type="button" data-difficulty="3" id="hard">困難・20 秒</button>
+      <button type="button" data-difficulty="0" id="leisure">休閒・不限時間</button>
     </div>
     <button type="button" class="difficulty-cancel" id="difficultyCancel">取消</button>
   </div>
@@ -265,6 +278,8 @@
       const difficultyOverlay = document.getElementById('difficultyOverlay');
       const difficultyCancel = document.getElementById('difficultyCancel');
       const difficultyButtons = [...difficultyOverlay.querySelectorAll('[data-difficulty]')];
+      const biaogeHit = new Audio("https://biaogenet.qzz.io/sounds/biaogeHit.wav");
+      const biaogeOver = new Audio("https://biaogenet.qzz.io/sounds/ReingGameOver.wav");
       
       const hitSays = [
         "夭壽！被打中了！啊啊啊！",
@@ -273,13 +288,23 @@
         "@#&$#",
         "別打了！",
         "我的熊命啊！",
-        "啊！我不要變成熊肉！"
-      ];
+        "啊！我不要變成熊肉！",
+        "哎唷喂呀！",
+        "猴友！很痛欸！",
+        "哇咧！",
+        "痛死熊了啦！",
+        "是在哈囉？",
+        "你給我記住！",
+        "啊不然你來當熊啊！",
+        "我只是路過欸！",
+        "歸剛欸！"
+    ];
       
       let score = 0;
       let timeLeft = "?";
       let best = Number(localStorage.getItem('biaogeWhackBest') || 0);
       let activeHole = -1;
+      let activeIsFake = false;
       let playing = false;
       let countdown = null;
       let popTimer = null;
@@ -304,10 +329,20 @@
           duration: 550,
           gap: 90,
           minDuration: 400
+        },
+        "0": {
+          time: NaN,
+          duration: 760,
+          gap: 230,
+          minDuration: 480
         }
       };
     
       bestEl.textContent = best;
+      biaogeHit.preload = "auto";
+      biaogeHit.load();
+      biaogeOver.preload = "auto";
+      biaogeOver.load();
     
       function clearTimers() {
         clearInterval(countdown);
@@ -317,8 +352,9 @@
       }
     
       function hideAll() {
-        holes.forEach(hole => hole.classList.remove('up', 'hit'));
+        holes.forEach(hole => hole.classList.remove('up', 'hit', 'fake'));
         activeHole = -1;
+        activeIsFake = false;
       }
     
       function updateScore() {
@@ -341,6 +377,8 @@
     
         const next = Math.floor(Math.random() * holes.length);
         activeHole = next;
+        activeIsFake = Math.random() < 0.20;
+        if (activeIsFake) holes[next].classList.add('fake');
         holes[next].classList.add('up');
     
         const settings = difficultySettings[currentDifficulty];
@@ -362,16 +400,24 @@
         }, duration);
       }
     
-      function endGame() {
+      function endGame(reason = 'time') {
         playing = false;
+        roundToken++;
         clearTimers();
         hideAll();
-    
+
         startBtn.disabled = false;
         startBtn.textContent = '再玩一次';
-        messageEl.textContent = `熊~時間到！你獲得 ${score} 分，最高紀錄 ${best} 分。`;
+
+        if (reason === 'fake') {
+          score = 0;
+          scoreEl.textContent = score;
+          messageEl.textContent = `踩到假熊陷阱！遊戲立即結束，分數清零！最高紀錄：${best} 分。`;
+        } else {
+          messageEl.textContent = `熊~時間到！你獲得 ${score} 分，最高紀錄 ${best} 分。`;
+        }
       }
-    
+
       function startGame() {
         difficultyOverlay.classList.add('open');
       }
@@ -379,19 +425,16 @@
       function beginGame(result) {
         clearTimers();
         roundToken++;
-    
         currentDifficulty = result;
         score = 0;
         timeLeft = difficultySettings[result].time;
         playing = true;
-    
         updateScore();
-        timeEl.textContent = timeLeft;
-    
+        if (Number.isNaN(timeLeft)) timeEl.textContent = "∞";
+        else timeEl.textContent = timeLeft;
         startBtn.disabled = true;
         startBtn.textContent = '遊戲進行中';
-        messageEl.textContent = '錶哥熊出現了！快點擊！';
-    
+        messageEl.textContent = '錶哥熊出現了！快點擊！';    
         const token = roundToken;
         showBear(token);
     
@@ -399,7 +442,9 @@
           if (!playing || token !== roundToken) return;
     
           timeLeft--;
-          timeEl.textContent = timeLeft;
+    
+          if (Number.isNaN(timeLeft)) timeEl.textContent = "∞";
+          else timeEl.textContent = timeLeft;
     
           if (timeLeft <= 0) endGame();
         }, 1000);
@@ -426,9 +471,22 @@
       holes.forEach((hole, index) => {
         hole.addEventListener('click', () => {
           if (!playing || index !== activeHole || hole.classList.contains('hit')) return;
+
+          if (activeIsFake) {
+            biaogeOver.currentTime = 0;
+            biaogeOver.play().catch(error => {
+              console.warn("結束音效無法播放：", error);
+            });
+            endGame('fake');
+            return;
+          }
     
           clearTimeout(popTimer);
           hole.classList.add('hit');
+          biaogeHit.currentTime = 0;
+            biaogeHit.play().catch(error => {
+              console.warn("受傷音效無法播放：", error);
+          });
     
           score++;
           updateScore();
