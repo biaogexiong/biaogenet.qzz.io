@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>錶哥網快訊</title>
+    <link>https://biaogenet.qzz.io/</link>
+    <description>熊~訂閱我可以接收錶哥網更新內容、福利等...</description>
+    <language>zh-tw</language>
+    <item>
+      <title>錶哥網快訊-訂閱測試</title>
+      <link>https://biaogenet.qzz.io/</link>
+      <description>歡迎訂閱錶哥網快訊，掌握最新消息。</description>
+      <guid>https://biaogenet.qzz.io/</guid>
+    </item>
+  </channel>
+</rss>
