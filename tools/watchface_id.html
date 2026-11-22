@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="載入你提供的.face錶盤檔，讀取樣本格式中的 ID 欄位。">
+  <title>錶盤ID|biaogeNet</title>
+  <link rel="icon" href="https://biaogenet.qzz.io/images/favicon.png" type="image/png" />
+  <link rel="stylesheet" href="https://biaogenet.qzz.io/styles/green.css">
+  <style>
+    code {
+      background: #eaf3eb;
+      padding: 2px 5px;
+      border-radius: 5px;
+    }
+
+    input[type=number] {
+      padding: 12px;
+      font-weight: bold;
+      border: 1px solid rgba(255, 255, 255, 0.30);
+      outline: none;
+      color: #fff;
+      border-radius: 18px;
+      background: rgba(34, 177, 76, 0.67);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10), inset 0 1px 1px rgba(255, 255, 255, 0.20);
+      width: 60%;
+    }
+    
+    .smlbtn {
+      width: 40px;
+      height: 40px;
+    }
+  </style>
+</head>
+<body>
+<div class="container" id="container">
+  <div class="menu-btn" onclick="OpenMenu()" id="menu-btn">☰</div>
+  <img class="topimg" src="https://biaogenet.qzz.io/images/favicon.png" alt="錶哥網小圖示"/>
+  <h3 class="title">錶哥網|biaogeNet</h3>
+</div>
+<div id="sideMenu" class="side-menu">
+  <a href="https://biaogenet.qzz.io">錶哥網首頁</a>
+  <a href="https://biaogenet.qzz.io/tools/coin.html">投硬幣</a>
+  <a href="https://biaogenet.qzz.io/other/pp.html">隱私權政策</a>
+ </div>
+<div class="content" id="content">
+  <h1>錶盤 ID 修改器</h1>
+  <p>載入你提供的 <code>.face</code> 錶盤檔，讀取樣本格式中的 ID 欄位<br>修改後另存新檔。原檔不會被覆寫。</p>
+  <h2>錶盤檔案</h2>
+  <input id="file" type="file" accept=".face,.bin,application/octet-stream" hidden>
+  <p id="faceName">錶盤名稱：未知</p>
+  <p id="faceSize">錶盤大小：未知</p>
+  <p id="faceOrigalid">舊 ID：未知</p>
+  <button onclick="document.getElementById('file').click()">選擇檔案</button>
+  <h2>新錶盤 ID</h2>
+  <input id="id" type="number" min="9" max="12" placeholder="輸入新的 ID" disabled>
+  <button class="smlbtn" onclick="randomId()">🎲</button>
+  <h3></h3>
+  <div>
+    <button id="save" disabled>修改並下載</button>
+    <button id="reset" disabled>還原舊 ID</button>
+  </div>
+</div>
+</body>
+      <script>
+        function OpenMenu() {
+          document.getElementById("sideMenu").classList.toggle("open");
+        }
+        function randomId() {
+          idInput = document.querySelector('#id');
+          idInput.value = "9798" + String(Math.floor(Math.random() * 10000000)).padStart(7, "0") + (Math.floor(Math.random() * 9) + 1);
+        }
+    </script>
+    <script>
+    const sideMenu = document.getElementById("sideMenu");
+    
+    fetch("https://biaogenet.qzz.io/menu.json")
+      .then(r => r.json())
+      .then(menu => {
+        sideMenu.innerHTML = "";
+        for (const [name, url] of Object.entries(menu)) {
+          const a = document.createElement("a");
+          a.href = url;
+          a.textContent = name;
+          sideMenu.appendChild(a);
+        }
+      })
+      .catch(err => {
+        // 若選單 JSON 暫時無法載入，保留 HTML 內建選單。
+        console.error("選單載入失敗，使用內建選單：", err);
+      });
+    </script>
+    <script>
+        (() => {
+            const fileInput = document.querySelector('#file'),
+            idInput = document.querySelector('#id');
+            const save = document.querySelector('#save'),
+            reset = document.querySelector('#reset'),
+            status = document.querySelector('#status');
+            const OFFSET = 40,
+            WIDTH = 64,
+            NAME_OFFSET = 104,
+            NAME_WIDTH = 64,
+            faceName = document.querySelector('#faceName'),
+            faceSize = document.querySelector('#faceSize'),
+            faceOrigalid = document.querySelector('#faceOrigalid'),
+            MAGIC = [0x5a, 0xa5, 0x34, 0x12];
+            let original = null,
+            bytes = null,
+            fileName = '',
+            originalId = '';
+            function decodeId(arr) {
+              const field = arr.slice(OFFSET, OFFSET + WIDTH);
+              const end = field.indexOf(0);
+              const visible = end < 0 ? field : field.slice(0, end);
+              return new TextDecoder('ascii').decode(visible);
+            }
+            fileInput.addEventListener(
+                'change',
+                async() => {
+                    original = bytes = null;
+                    originalId = '';
+                    faceName.textContent = '錶盤名稱：未知';
+                    faceSize.textContent = '錶盤大小：未知';
+                    faceOrigalid.textContent = '舊 ID：未知';
+                    save.disabled = reset.disabled = idInput.disabled = true;
+                    const f = fileInput.files?.[0];
+                    if (!f) {
+                        return
+                    }
+                    fileName = f.name;
+                    try {
+                        const ab = await f.arrayBuffer();
+                        const b = new Uint8Array(ab);
+                        if (b.length < OFFSET + WIDTH)
+                            throw Error('檔案長度不足，無法讀取樣本 ID 欄位。');
+                        if (!MAGIC.every((v, i) => b[i] === v))
+                            throw Error('檔頭與已知樣本不符，為避免損壞，停止修改。');
+                        const id = decodeId(b);
+                         const nameField = b.slice(NAME_OFFSET, NAME_OFFSET + NAME_WIDTH);
+                         const nameEnd = nameField.indexOf(0);
+                         const nameBytes = nameEnd < 0 ? nameField : nameField.slice(0, nameEnd);
+                         const name = new TextDecoder('utf-8').decode(nameBytes).trim();
+                        if (!id || !/^[\x20-\x7e]+$/.test(id))
+                            throw Error('ID 欄位不是可辨識的 ASCII 字串，停止修改。');
+                        original = b.slice();
+                        bytes = b;
+                        originalId = id;
+                        faceName.textContent = `錶盤名稱：${name}`;
+                        faceSize.textContent = `錶盤大小：${b.length.toLocaleString()} bytes`;
+                        faceOrigalid.textContent = `舊 ID：${originalId}`;
+                        idInput.value = id;
+                        idInput.disabled = save.disabled = reset.disabled = false;
+                    } catch (e) {
+                    }
+                }
+            );
+            reset.addEventListener('click', () => {
+                if (originalId) {
+                    idInput.value = originalId;
+                }
+            });
+            save.addEventListener(
+                'click',
+                () => {
+                    if (!bytes)
+                        return;
+                    const value = idInput.value;
+                    if (!value || !/^[\x20-\x7e]+$/.test(value)) {
+                        return
+                    }
+                    if (value.length > WIDTH) {
+                        return
+                    }
+                    const out = bytes.slice();
+                    out.fill(0, OFFSET, OFFSET + WIDTH);
+                    for (let i = 0; i < value.length; i++)
+                        out[OFFSET + i] = value.charCodeAt(i);
+                    const blob = new Blob([out], {
+                        type: 'application/octet-stream'
+                    });
+                    const url = URL.createObjectURL(blob),
+                    a = document.createElement('a');
+                    a.href = url;
+                    a.download = fileName.replace(/\.(face|bin)$/i, '') + '_edit.face';
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                    URL.revokeObjectURL(url);
+                }
+            );
+        })();
+    </script>
+</html>
