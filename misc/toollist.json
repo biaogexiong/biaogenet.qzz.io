@@ -8,5 +8,10 @@
     "name": "📝<br>刮刮樂",
     "url": "https://biaogenet.qzz.io/tools/scratcher.html",
     "type": "daily master-like"
+  },
+    {
+    "name": "⌚<br>錶盤ID更改",
+    "url": "https://biaogenet.qzz.io/tools/watchface_id.html",
+    "type": "daily"
   }
 ]
