@@ -33,27 +33,15 @@
       background: rgba(34, 177, 76, 0.80);
       color: #fff;
     }
-
+    
     .tool-search {
       width: min(100%, 520px);
-      box-sizing: border-box;
       display: block;
       margin: 18px auto;
       padding: 13px 18px;
-      border: 1px solid rgba(255, 255, 255, 0.28);
-      border-radius: 999px;
       outline: none;
-      background: rgba(255, 255, 255, 0.72);
-      color: #222;
-      font: inherit;
-      box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08),
-        inset 1px 1px 3px rgba(255, 255, 255, 0.7);
     }
-
-    .tool-search:focus {
-      border-color: #22b14c;
-    }
-
+    
     #toolList {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
@@ -124,7 +112,7 @@
   <input
     id="toolSearch"
     class="tool-search"
-    type="search"
+    type="text"
     placeholder="搜尋工具名稱..."
     aria-label="搜尋工具"
     autocomplete="off"
