@@ -25,14 +25,10 @@ body::before {
   box-sizing: border-box;
 }
 
-button:focus,
-a:focus {
+button:focus, a:focus {
   outline: none;
 }
 
-/* =========================
-   所有按鈕
-   ========================= */
 button {
   position: relative;
   width: 150px;
@@ -45,9 +41,7 @@ button {
   background: rgba(34, 177, 76, 0.80);
   backdrop-filter: blur(14px) saturate(140%);
   -webkit-backdrop-filter: blur(14px) saturate(140%);
-  box-shadow:
-    0 5px 16px rgba(0, 0, 0, 0.16),
-    inset 0 1px 1px rgba(255, 255, 255, 0.22);
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.16), inset 0 1px 1px rgba(255, 255, 255, 0.22);
   cursor: pointer;
   overflow: hidden;
   transition: transform 0.18s ease, background 0.18s ease;
@@ -57,7 +51,6 @@ button:active {
   transform: scale(0.94);
 }
 
-/* 只有滑鼠才啟用 hover */
 @media (hover: hover) and (pointer: fine) {
   button:hover {
     background: rgba(34, 177, 76, 0.62);
@@ -65,9 +58,6 @@ button:active {
   }
 }
 
-/* =========================
-   頂部懸浮列
-   ========================= */
 .container {
   position: fixed;
   top: 12px;
@@ -82,9 +72,7 @@ button:active {
   border-radius: 20px;
   backdrop-filter: blur(18px) saturate(140%);
   -webkit-backdrop-filter: blur(18px) saturate(140%);
-  box-shadow:
-    0 7px 22px rgba(0, 0, 0, 0.16),
-    inset 0 1px 1px rgba(255, 255, 255, 0.24);
+  box-shadow: 0 7px 22px rgba(0, 0, 0, 0.16), inset 0 1px 1px rgba(255, 255, 255, 0.24);
   overflow: hidden;
   z-index: 999;
 }
@@ -117,9 +105,6 @@ button:active {
   color: #fff;
 }
 
-/* =========================
-   三 → 玻璃圓球
-   ========================= */
 .menu-btn {
   position: absolute;
   left: 7px;
@@ -137,9 +122,7 @@ button:active {
   background: rgba(255, 255, 255, 0.10);
   backdrop-filter: blur(14px) saturate(140%);
   -webkit-backdrop-filter: blur(14px) saturate(140%);
-  box-shadow:
-    0 5px 14px rgba(0, 0, 0, 0.18),
-    inset 1px 1px 2px rgba(255, 255, 255, 0.25);
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.18), inset 1px 1px 2px rgba(255, 255, 255, 0.25);
   transition: transform 0.18s ease;
   z-index: 3;
 }
@@ -154,9 +137,6 @@ button:active {
   }
 }
 
-/* =========================
-   懸浮側邊選單
-   ========================= */
 .side-menu {
   position: fixed;
   top: 72px;
@@ -165,49 +145,29 @@ button:active {
   height: 83vh;
   max-height: 83vh;
   padding: 14px;
-
   background: rgba(34, 177, 76, 0.67);
   border: 1px solid rgba(255, 255, 255, 0.30);
   border-radius: 22px;
-
   backdrop-filter: blur(20px) saturate(140%);
   -webkit-backdrop-filter: blur(20px) saturate(140%);
-
-  box-shadow:
-    0 12px 30px rgba(0, 0, 0, 0.18),
-    inset 1px 1px 2px rgba(255, 255, 255, 0.22);
-
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18), inset 1px 1px 2px rgba(255, 255, 255, 0.22);
   overflow-x: hidden;
   overflow-y: auto;
-
   transform: translate(-4px, -4px) scale(0.08);
   transform-origin: 23px 23px;
-
   opacity: 0;
   visibility: hidden;
-
-  transition:
-    transform 0.42s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-    opacity 0.20s ease,
-    visibility 0s linear 0.42s;
-
+  transition: transform 0.42s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.20s ease, visibility 0s linear 0.42s;
   z-index: 998;
 }
 
-/* 開啟：從三冒出來 */
 .side-menu.open {
   transform: translate(0, 0) scale(1);
   opacity: 1;
   visibility: visible;
-
-  transition:
-    transform 0.42s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-    opacity 0.20s ease;
+  transition: transform 0.42s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.20s ease;
 }
 
-/* =========================
-   選單項目
-   ========================= */
 .side-menu a {
   display: block;
   position: relative;
@@ -217,20 +177,13 @@ button:active {
   color: #fff;
   font-size: 20px;
   text-decoration: none;
-
   border: 1px solid rgba(255, 255, 255, 0.20);
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.06);
-
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-
-  box-shadow:
-    inset 1px 1px 2px rgba(255, 255, 255, 0.18);
-
-  transition:
-    transform 0.18s ease,
-    background 0.18s ease;
+  box-shadow: inset 1px 1px 2px rgba(255, 255, 255, 0.18);
+  transition: transform 0.18s ease, background 0.18s ease;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -241,57 +194,144 @@ button:active {
   }
 }
 
-/* =========================
-   輸入框
-   ========================= */
 input[type="text"] {
   border: 1px solid rgba(255, 255, 255, 0.30);
   outline: none;
   padding: 10px 14px;
-  color: #fff;
+  color: #000;
   border-radius: 18px;
-  background: rgba(34, 177, 76, 0.67);
-
+  background: rgba(233, 233, 233, 0.67);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-
-  box-shadow:
-    0 4px 12px rgba(0, 0, 0, 0.10),
-    inset 0 1px 1px rgba(255, 255, 255, 0.20);
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.16), inset 0 1px 1px rgba(255, 255, 255, 0.22);
+  font-weight: bold;
 }
 
-/* =========================
-   玻璃卡片
-   ========================= */
+input[type="number"] {
+  border: 1px solid rgba(255, 255, 255, 0.30);
+  outline: none;
+  padding: 10px 14px;
+  color: #000;
+  border-radius: 18px;
+  background: rgba(233, 233, 233, 0.67);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.16), inset 0 1px 1px rgba(255, 255, 255, 0.22);
+  font-weight: bold;
+}
+
+input[type="password"] {
+  border: 1px solid rgba(255, 255, 255, 0.30);
+  outline: none;
+  padding: 10px 14px;
+  color: #000;
+  border-radius: 18px;
+  background: rgba(233, 233, 233, 0.67);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.16), inset 0 1px 1px rgba(255, 255, 255, 0.22);
+  font-weight: bold;
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
+  display: inline-grid;
+  place-content: center;
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
+  min-height: 22px;
+  margin: 0;
+  padding: 0;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.68);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.16), inset 0 1px 1px rgba(255, 255, 255, 0.22);
+}
+
+input[type="checkbox"]:checked {
+  background: #22b14c;
+  border-color: #22b14c;
+  border: 1px solid rgba(255, 255, 255, 0.30);
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  width: 5px;
+  height: 10px;
+  border: solid rgba(255, 255, 255, 0.90);
+  border-width: 0 2.5px 2.5px 0;
+}
+
+input[type="checkbox"]:checked::before {
+  transform: rotate(45deg) scale(1);
+}
+
+select {
+  border: 1px solid rgba(255, 255, 255, 0.30);
+  outline: none;
+  padding: 10px 14px;
+  color: #000;
+  border-radius: 18px;
+  background: rgba(233, 233, 233, 0.67);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.16), inset 0 1px 1px rgba(255, 255, 255, 0.22);
+  font-weight: bold;
+  width: 80%;
+}
+
+input[type="color"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 67%;
+  max-width: 100px;
+  height: 54px;
+  padding: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.30);
+  border-radius: 16px;
+  background: rgba(233, 233, 233, 0.67);
+  cursor: pointer;
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.16), inset 0 1px 1px rgba(255, 255, 255, 0.22);
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+input[type="color"]::-webkit-color-swatch {
+  border: 1px solid rgba(255, 255, 255, 0.30);
+  border-radius: 16px;
+}
+
+input[type="color"]::-moz-color-swatch {
+  border: 1px solid rgba(255, 255, 255, 0.30);
+  border-radius: 16px;
+}
+
 .crad {
   position: relative;
   width: min(90%, 520px);
   margin: 16px auto;
   padding: 20px;
-
   display: inline-block;
-
   color: #000;
   text-align: center;
-
   background: rgba(192, 224, 184, 0.80);
   border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 20px;
-  box-shadow:
-    0 8px 24px rgba(0, 0, 0, 0.14),
-    inset 1px 1px 2px rgba(255, 255, 255, 0.20);
-
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14), inset 1px 1px 2px rgba(255, 255, 255, 0.20);
   overflow: hidden;
 }
 
-/* 卡片邊緣反射 */
 .crad::before {
   content: "";
   position: absolute;
   inset: 0;
-
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: inherit;
-
   pointer-events: none;
-}
+  }
