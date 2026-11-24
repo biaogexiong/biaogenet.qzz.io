@@ -1,3 +1,19 @@
+:root {
+  --bg1: #f2fff2;
+  --bg2: #eaeae2;
+  --text: #000;
+  --crad: rgba(192, 224, 184, 0.80);
+  --input: rgba(233, 233, 233, 0.67);
+}
+
+:root.dark {
+  --bg1: #525f52;
+  --bg2: #3a3a32;
+  --text: #fff;
+  --crad: rgba(12, 34, 14, 0.80);
+  --input: rgba(22, 22, 22, 0.67);
+}
+
 @font-face {
   font-family: "BiaogeSymbols";
   src: url("https://biaogenet.qzz.io/fonts/BiaogeNetSymbols.ttf") format("truetype");
@@ -9,6 +25,15 @@ body {
   font-family: "BiaogeSymbols", sans-serif;
   font-weight: bold;
   font-synthesis: none;
+  color: var(--text);
+}
+
+a {
+  color: #22b14c;
+}
+
+a:visited {
+  color: #009688;
 }
 
 body::before {
@@ -16,7 +41,7 @@ body::before {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(#f2fff2, #eaeae2);
+  background: linear-gradient(var(--bg1), var(--bg2));
   pointer-events: none;
 }
 
@@ -198,9 +223,9 @@ input[type="text"] {
   border: 1px solid rgba(255, 255, 255, 0.30);
   outline: none;
   padding: 10px 14px;
-  color: #000;
+  color: var(--text);
   border-radius: 18px;
-  background: rgba(233, 233, 233, 0.67);
+  background: var(--input);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.16), inset 0 1px 1px rgba(255, 255, 255, 0.22);
@@ -211,9 +236,9 @@ input[type="number"] {
   border: 1px solid rgba(255, 255, 255, 0.30);
   outline: none;
   padding: 10px 14px;
-  color: #000;
+  color: var(--text);
   border-radius: 18px;
-  background: rgba(233, 233, 233, 0.67);
+  background: var(--input);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.16), inset 0 1px 1px rgba(255, 255, 255, 0.22);
@@ -224,9 +249,9 @@ input[type="password"] {
   border: 1px solid rgba(255, 255, 255, 0.30);
   outline: none;
   padding: 10px 14px;
-  color: #000;
+  color: var(--text);
   border-radius: 18px;
-  background: rgba(233, 233, 233, 0.67);
+  background: var(--input);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.16), inset 0 1px 1px rgba(255, 255, 255, 0.22);
@@ -274,9 +299,9 @@ select {
   border: 1px solid rgba(255, 255, 255, 0.30);
   outline: none;
   padding: 10px 14px;
-  color: #000;
+  color: var(--text);
   border-radius: 18px;
-  background: rgba(233, 233, 233, 0.67);
+  background: var(--input);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.16), inset 0 1px 1px rgba(255, 255, 255, 0.22);
@@ -293,7 +318,7 @@ input[type="color"] {
   padding: 5px;
   border: 1px solid rgba(255, 255, 255, 0.30);
   border-radius: 16px;
-  background: rgba(233, 233, 233, 0.67);
+  background: var(--input);
   cursor: pointer;
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.16), inset 0 1px 1px rgba(255, 255, 255, 0.22);
 }
@@ -318,9 +343,9 @@ input[type="color"]::-moz-color-swatch {
   margin: 16px auto;
   padding: 20px;
   display: inline-block;
-  color: #000;
+  color: var(--text);
   text-align: center;
-  background: rgba(192, 224, 184, 0.80);
+  background: var(--crad);
   border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 20px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14), inset 1px 1px 2px rgba(255, 255, 255, 0.20);
@@ -334,4 +359,4 @@ input[type="color"]::-moz-color-swatch {
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: inherit;
   pointer-events: none;
-  }
+}
